@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+
+  <components>
+    <component id="InMemorySubscriptionRepository"
+               service="Burrows.Subscriptions.ISubscriptionRepository, Burrows"
+               type="Burrows.Subscriptions.InMemorySubscriptionRepository, Burrows"/>
+
+    <component id="SubscriptionServiceCache"
+               service="Burrows.Subscriptions.ISubscriptionCache, Burrows"
+               type="Burrows.Subscriptions.LocalSubscriptionCache, Burrows"/>
+
+    <component id="SubscriptionService"
+               type="Burrows.Subscriptions.SubscriptionService, Burrows">
+      <parameters>
+        <bus>${subscriptions}</bus>
+        <subscriptionCache>${SubscriptionServiceCache}</subscriptionCache>
+      </parameters>
+    </component>
+  </components>
+  <facilities>
+    <facility id="masstransit">
+
+      <bus id="subscriptions"
+				   endpoint="loopback://localhost/pubsub_sb">
+        <subscriptionCache mode="local" name="SubscriptionServiceCache" />
+        <dispatcher minThreads="1" maxThreads="4" />
+      </bus>
+      <bus id="local"
+				   endpoint="loopback://localhost/local_sb">
+        <subscriptionCache mode="local" />
+        <subscriptionService endpoint ="loopback://localhost/pubsub_sb" />
+        <dispatcher minThreads="1" maxThreads="4" />
+      </bus>
+      <bus id="remote" 
+           endpoint="loopback://localhost/remote_sb">
+        <subscriptionCache mode="local" />
+        <subscriptionService endpoint ="loopback://localhost/pubsub_sb" />
+        <dispatcher minThreads="1" maxThreads="4" />
+      </bus>
+      <transports>
+        <transport>Burrows.Transports.LoopbackEndpoint, Burrows</transport>
+      </transports>
+    </facility>
+  </facilities>
+</configuration>

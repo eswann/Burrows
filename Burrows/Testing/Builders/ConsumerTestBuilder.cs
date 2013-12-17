@@ -1,0 +1,62 @@
+﻿// Copyright 2007-2011 Chris Patterson, Dru Sellers, Travis Smith, et. al.
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+// this file except in compliance with the License. You may obtain a copy of the 
+// License at 
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software distributed 
+// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+// specific language governing permissions and limitations under the License.
+namespace Burrows.Testing.Builders
+{
+    using System.Collections.Generic;
+    using Instances;
+    using Scenarios;
+    using TestActions;
+
+    public interface IConsumerTestBuilder<TScenario, TConsumer> :
+        ITestInstanceBuilder<TScenario>
+        where TConsumer : class
+        where TScenario : ITestScenario
+    {
+        ConsumerTest<TScenario, TConsumer> Build();
+
+        void SetConsumerFactory(IConsumerFactory<TConsumer> consumerFactory);
+    }
+
+	public class ConsumerTestBuilder<TScenario, TConsumer> :
+		IConsumerTestBuilder<TScenario, TConsumer>
+		where TConsumer : class, IConsumer
+	    where TScenario : ITestScenario
+	{
+		readonly IList<TestAction<TScenario>> _actions;
+		readonly TScenario _scenario;
+		IConsumerFactory<TConsumer> _consumerFactory;
+		public ConsumerTestBuilder(TScenario scenario)
+		{
+			_scenario = scenario;
+
+			_actions = new List<TestAction<TScenario>>();
+		}
+
+		public ConsumerTest<TScenario, TConsumer> Build()
+		{
+			var test = new ConsumerTestInstance<TScenario, TConsumer>(_scenario, _actions, _consumerFactory);
+
+			return test;
+		}
+
+		public void SetConsumerFactory(IConsumerFactory<TConsumer> consumerFactory)
+		{
+			_consumerFactory = consumerFactory;
+		}
+
+		public void AddTestAction(TestAction<TScenario> testAction)
+		{
+			_actions.Add(testAction);
+		}
+	}
+}
