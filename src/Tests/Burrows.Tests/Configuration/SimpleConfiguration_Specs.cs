@@ -25,7 +25,7 @@ namespace Burrows.Tests.Configuration
 		[Then]
 		public void Configuring_a_service_bus_easily()
 		{
-		    using (var bus = ServiceBusFactory.New(x => { x.ReceiveFrom("loopback://localhost/queue"); }))
+		    using (var bus = ServiceBusFactory.New(x => x.ReceiveFrom("loopback://localhost/queue")))
 			{
 				var received = new FutureMessage<PingMessage>();
 
