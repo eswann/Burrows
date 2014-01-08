@@ -1,6 +1,6 @@
 ﻿using System;
 using Burrows.Configuration;
-using Burrows.Log4NetIntegration;
+using Burrows.Log4Net;
 using Burrows.PublisherConfirms;
 using Burrows.Tests.Messages;
 

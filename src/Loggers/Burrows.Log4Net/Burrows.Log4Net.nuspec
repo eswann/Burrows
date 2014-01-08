@@ -9,10 +9,10 @@
         <projectUrl>https://github.com/eswann/Burrows</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <summary>Log4Net integration for Burrows.  Burrows is a RabbitMQ messaging framework for .NET based on MassTransit: http://masstransit-project.com.</summary>
+        <summary>$description$</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
-        <tags>RabbitMQ Rabbit ServiceBus</tags>
+        <tags>RabbitMQ Rabbit ServiceBus Log4Net</tags>
         <dependencies>
             <dependency id="Burrows" version="$version$" />
             <dependency id="log4net" version="2.0.3" />

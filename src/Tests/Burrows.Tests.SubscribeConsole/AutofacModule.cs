@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Autofac;
 using Burrows.Autofac;
 using Burrows.Configuration;
-using Burrows.Log4NetIntegration;
+using Burrows.Log4Net;
 using Burrows.Transports.Configuration.Extensions;
 using Magnum.Extensions;
 using Module = Autofac.Module;

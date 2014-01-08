@@ -55,6 +55,7 @@
     <Compile Include="NLogConfiguratorExtensions.cs" />
     <Compile Include="Logging\NLogLog.cs" />
     <Compile Include="Logging\NLogLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Burrows\Burrows.csproj">
@@ -62,9 +63,7 @@
       <Name>Burrows</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Burrows.NLog.nuspec" />
     <None Include="packages.config" />

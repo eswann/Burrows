@@ -154,6 +154,14 @@
       <Project>{6efd69fc-cbcc-4f85-aee0-efba73f4d273}</Project>
       <Name>Burrows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Containers\Burrows.Autofac\Burrows.Autofac.csproj">
+      <Project>{A31F2C6B-C806-46FD-A4F3-C54209DD495C}</Project>
+      <Name>Burrows.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Loggers\Burrows.Log4Net\Burrows.Log4Net.csproj">
+      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
+      <Name>Burrows.Log4Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Burrows.Tests.Messages\Burrows.Tests.Messages.csproj">
       <Project>{9b002752-c3cc-4e96-b03c-0d10d7533842}</Project>
       <Name>Burrows.Tests.Messages</Name>
