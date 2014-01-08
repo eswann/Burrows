@@ -13,7 +13,7 @@
         <summary>Burrows is a RabbitMQ messaging framework for .NET based on MassTransit: http://masstransit-project.com.</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
-        <tags>RabbitMQ Rabbit ServiceBus</tags>
+        <tags>Burrows RabbitMQ Rabbit ServiceBus</tags>
         <dependencies>
             <dependency id="RabbitMQ.Client" version="3.2.1" />
             <dependency id="Stact" version="1.1.1" />

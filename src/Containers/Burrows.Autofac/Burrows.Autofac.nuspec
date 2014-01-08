@@ -13,7 +13,7 @@
         <summary>$description$</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
-        <tags>RabbitMQ Rabbit ServiceBus Autofac</tags>
+        <tags>Burrows Autofac RabbitMQ Rabbit ServiceBus</tags>
         <dependencies>
             <dependency id="Burrows" version="$version$" />
             <dependency id="Autofac" version="3.3.0" />

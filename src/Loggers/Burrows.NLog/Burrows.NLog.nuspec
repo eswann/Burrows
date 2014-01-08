@@ -13,7 +13,7 @@
         <summary>$description$</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
-        <tags>RabbitMQ Rabbit ServiceBus NLog</tags>
+        <tags>Burrows NLog RabbitMQ Rabbit ServiceBus Log</tags>
         <dependencies>
             <dependency id="Burrows" version="$version$" />
             <dependency id="NLog" version="2.1.0" />

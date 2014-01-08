@@ -13,7 +13,7 @@
         <summary>$description$</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
-        <tags>RabbitMQ Rabbit ServiceBus Log4Net</tags>
+        <tags>Burrows Log4Net RabbitMQ Rabbit ServiceBus Log</tags>
         <dependencies>
             <dependency id="Burrows" version="$version$" />
             <dependency id="log4net" version="2.0.3" />
