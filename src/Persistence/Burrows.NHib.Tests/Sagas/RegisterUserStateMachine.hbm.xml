@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Burrows.NHib.Tests"
+                   assembly="Burrows.NHib.Tests"
+                   default-access="property"
+                   default-lazy="false"
+                   default-cascade="none" >
+  <class name="Burrows.Tests.Saga.StateMachine.RegisterUserStateMachine, Burrows.Tests">
+    <id name="CorrelationId" column="Id" type="System.Guid">
+      <generator class="assigned" />
+    </id>
+
+    <property name="CurrentState" access="field.camelcase-underscore" type="Burrows.NHib.StateMachineUserType, Burrows.NHib" />
+
+    <property name="Username" length="40"/>
+    <property name="Password" length="40"/>
+    <property name="DisplayName" length="80"/>
+    <property name="Email" length="256"/>
+    <property name="Validated"/>
+
+  </class>
+</hibernate-mapping>

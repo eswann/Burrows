@@ -34,7 +34,7 @@ namespace Burrows.Tests.Framework.Fixtures
         public SagaTestFixture()
         {
             LocalUri = new Uri("loopback://localhost/mt_client");
-            SagaId = NewId.NewId.NextGuid();
+            SagaId = NewIds.NewId.NextGuid();
         }
 
         [TestFixtureSetUp]

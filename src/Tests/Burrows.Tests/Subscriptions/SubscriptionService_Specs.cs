@@ -55,7 +55,7 @@ namespace Burrows.Tests.Subscriptions
         [Test]
         public void Removing_a_subscription_twice_should_not_have_a_negative_impact()
         {
-            Guid clientId = NewId.NewId.NextGuid();
+            Guid clientId = NewIds.NewId.NextGuid();
             var clientUri = new Uri("loopback://localhost/monster_beats");
 
             var subscription = new SubscriptionInformation(clientId, 1, typeof (PingMessage),

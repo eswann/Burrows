@@ -37,7 +37,7 @@ namespace Burrows.Context
         }
 
         public SendContext(T message)
-            : this(NewId.NewId.NextGuid(), message, typeof(T))
+            : this(NewIds.NewId.NextGuid(), message, typeof(T))
         {
         }
 

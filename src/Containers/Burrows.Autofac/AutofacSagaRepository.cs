@@ -21,8 +21,7 @@ using Burrows.Saga;
 
 namespace Burrows.Autofac
 {
-    public class AutofacSagaRepository<T> :
-        ISagaRepository<T>
+    public class AutofacSagaRepository<T> : ISagaRepository<T>
         where T : class, ISaga
     {
         private readonly string _name;

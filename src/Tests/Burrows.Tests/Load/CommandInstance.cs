@@ -19,7 +19,7 @@ namespace Burrows.Tests.Load
     {
         public CommandInstance()
         {
-            Id = NewId.NewId.NextGuid();
+            Id = NewIds.NewId.NextGuid();
             CreatedAt = SystemUtil.UtcNow;
         }
 

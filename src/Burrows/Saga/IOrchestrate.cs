@@ -18,9 +18,7 @@ namespace Burrows.Saga
     /// Specifies that a class implementing ISaga consumes TMessage as part of the saga
     /// </summary>
     /// <typeparam name="TMessage">The type of message to consume</typeparam>
-    public interface IOrchestrate<TMessage> :
-        Consumes<TMessage>.All
-        where TMessage : class, ICorrelatedBy<Guid>
+    public interface IOrchestrate<TMessage> : Consumes<TMessage>.All where TMessage : class, ICorrelatedBy<Guid>
     {
     }
 }

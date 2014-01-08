@@ -16,7 +16,7 @@ namespace Burrows.Saga
     {
         public static IEventBinder<TSaga, TMessage> UseNewId<TSaga, TMessage>(this IEventBinder<TSaga, TMessage> binder)
         {
-            return binder.UseId(x => NewId.NewId.NextGuid());
+            return binder.UseId(x => NewIds.NewId.NextGuid());
         }
     }
 }

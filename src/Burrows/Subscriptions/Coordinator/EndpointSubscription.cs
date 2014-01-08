@@ -50,7 +50,7 @@ namespace Burrows.Subscriptions.Coordinator
             if (_ids.Count > 1)
                 return;
 
-            _subscriptionId = NewId.NewId.NextGuid();
+            _subscriptionId = NewIds.NewId.NextGuid();
             _endpointUri = message.EndpointUri;
 
             var add = new SubscriptionAddedMessage

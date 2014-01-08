@@ -11,7 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Burrows.NewId.NewIdProviders;
+using Burrows.NewIds.NewIdProviders;
 
 namespace Burrows.Tests.NewId_
 {
@@ -26,7 +26,7 @@ namespace Burrows.Tests.NewId_
         public void Should_be_able_to_extract_timestamp()
         {
             DateTime now = DateTime.UtcNow;
-            NewId.NewId id = NewId.NewId.Next();
+            NewIds.NewId id = NewIds.NewId.Next();
 
             DateTime timestamp = id.Timestamp;
 
@@ -42,14 +42,14 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_generate_sequential_ids_quickly()
         {
-            NewId.NewId.SetTickProvider(new StopwatchTickProvider());
-            NewId.NewId.Next();
+            NewIds.NewId.SetTickProvider(new StopwatchTickProvider());
+            NewIds.NewId.Next();
 
             int limit = 10;
 
-            var ids = new NewId.NewId[limit];
+            var ids = new NewIds.NewId[limit];
             for (int i = 0; i < limit; i++)
-                ids[i] = NewId.NewId.Next();
+                ids[i] = NewIds.NewId.Next();
 
             for (int i = 0; i < limit - 1; i++)
             {
@@ -61,15 +61,15 @@ namespace Burrows.Tests.NewId_
         [Test, Explicit]
         public void Should_generate_unique_identifiers_with_each_invocation()
         {
-            NewId.NewId.Next();
+            NewIds.NewId.Next();
 
             Stopwatch timer = Stopwatch.StartNew();
 
             int limit = 1024 * 1024;
 
-            var ids = new NewId.NewId[limit];
+            var ids = new NewIds.NewId[limit];
             for (int i = 0; i < limit; i++)
-                ids[i] = NewId.NewId.Next();
+                ids[i] = NewIds.NewId.Next();
 
             timer.Stop();
 

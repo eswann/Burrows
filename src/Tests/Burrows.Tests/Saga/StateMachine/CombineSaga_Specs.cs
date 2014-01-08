@@ -35,7 +35,7 @@ namespace Burrows.Tests.Saga.StateMachine
             base.EstablishContext();
 
             _repository = SetupSagaRepository<CombineSaga>();
-            _transactionId = NewId.NewId.NextGuid();
+            _transactionId = NewIds.NewId.NextGuid();
         }
 
         [Test]

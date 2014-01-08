@@ -96,7 +96,7 @@ namespace Burrows.Saga.SubscriptionConnectors
                 return correlated.CorrelationIdSelector;
             }
 
-            return x => NewId.NewId.NextGuid();
+            return x => NewIds.NewId.NextGuid();
         }
 
         class Correlated<T> :

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Burrows.NHib.Tests"
+                   assembly="Burrows.NHib.Tests"
+                   default-access="property"
+                   default-lazy="false"
+                   default-cascade="none" >
+  <class name="Burrows.Tests.Saga.Locator.TestSaga, Burrows.Tests">
+    <id name="CorrelationId" column="Id" type="System.Guid">
+      <generator class="assigned" />
+    </id>
+
+    <property name="CurrentState" access="field.camelcase-underscore" type="Burrows.NHib.StateMachineUserType, Burrows.NHib" />
+
+    <property name="Name" length="80"/>
+
+  </class>
+</hibernate-mapping>

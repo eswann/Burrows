@@ -92,7 +92,7 @@ namespace Burrows.Tests.RabbitMq
             {
                 LocalBus.Publish<Sometimes>(new
                     {
-                        Id = NewId.NewId.NextGuid(),
+                        Id = NewIds.NewId.NextGuid(),
                         Accept = i % 2 == 0,
                     });
             }

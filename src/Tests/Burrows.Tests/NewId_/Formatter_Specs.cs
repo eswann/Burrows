@@ -11,8 +11,8 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Burrows.NewId.NewIdFormatters;
-using Burrows.NewId.NewIdParsers;
+using Burrows.NewIds.NewIdFormatters;
+using Burrows.NewIds.NewIdParsers;
 
 namespace Burrows.Tests.NewId_
 {
@@ -24,14 +24,14 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_back_using_parser()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             var formatter = new ZBase32Formatter(true);
 
             string ns = n.ToString(formatter);
 
             var parser = new ZBase32Parser();
-            NewId.NewId newId = parser.Parse(ns);
+            NewIds.NewId newId = parser.Parse(ns);
 
 
             Assert.AreEqual(n, newId);
@@ -40,14 +40,14 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_back_using_standard_parser()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             var formatter = new Base32Formatter(true);
 
             string ns = n.ToString(formatter);
 
             var parser = new Base32Parser();
-            NewId.NewId newId = parser.Parse(ns);
+            NewIds.NewId newId = parser.Parse(ns);
 
 
             Assert.AreEqual(n, newId);
@@ -56,7 +56,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_using_custom_base32_formatting_characters()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             var formatter = new Base32Formatter("0123456789ABCDEFGHIJKLMNOPQRSTUV");
 
@@ -68,7 +68,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_using_standard_base32_formatting_characters()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             var formatter = new Base32Formatter(true);
 
@@ -80,7 +80,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_using_the_optimized_human_readable_formatter()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             var formatter = new ZBase32Formatter(true);
 
@@ -92,12 +92,12 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_translate_often_transposed_characters_to_proper_values()
         {
-            var n = new NewId.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
+            var n = new NewIds.NewId("F6B27C7C-8AB8-4498-AC97-3A6107A21320");
 
             string ns = "6438A9RK2BNJTMRZ8J0OXE0UBY";
 
             var parser = new ZBase32Parser(true);
-            NewId.NewId newId = parser.Parse(ns);
+            NewIds.NewId newId = parser.Parse(ns);
 
 
             Assert.AreEqual(n, newId);

@@ -24,7 +24,7 @@ namespace Burrows.Tests.Saga.StateMachine
         [SetUp]
         public void Setup()
         {
-            _transactionId = NewId.NewId.NextGuid();
+            _transactionId = NewIds.NewId.NextGuid();
             _username = "jblow";
             _password = "password1";
             _email = "jblow@yourdad.com";

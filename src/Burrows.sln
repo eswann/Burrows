@@ -42,6 +42,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.Log4Net", "Loggers\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.NLog", "Loggers\Burrows.NLog\Burrows.NLog.csproj", "{F802655A-D5EC-4031-B21F-A3EECCBE02A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{5EFF44F5-18E0-4842-B8EB-EF094509859E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.NHib", "Persistence\Burrows.NHib\Burrows.NHib.csproj", "{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.NHib.Tests", "Persistence\Burrows.NHib.Tests\Burrows.NHib.Tests.csproj", "{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +180,26 @@ Global
 		{F802655A-D5EC-4031-B21F-A3EECCBE02A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F802655A-D5EC-4031-B21F-A3EECCBE02A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F802655A-D5EC-4031-B21F-A3EECCBE02A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4}.Release|x86.ActiveCfg = Release|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +216,8 @@ Global
 		{E4C3F51F-B7CE-4521-80BC-E91A9B0F6FFD} = {4D626E2C-218B-47F6-BAA4-DBD792413BF4}
 		{76646B96-936B-4D31-A053-35CD630E3C68} = {4D626E2C-218B-47F6-BAA4-DBD792413BF4}
 		{ABD6138E-6215-4280-ABD9-374FC8A70942} = {4D626E2C-218B-47F6-BAA4-DBD792413BF4}
+		{F5DEA73A-0880-4F1D-B183-65E8FE65E7A4} = {5EFF44F5-18E0-4842-B8EB-EF094509859E}
+		{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478} = {5EFF44F5-18E0-4842-B8EB-EF094509859E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

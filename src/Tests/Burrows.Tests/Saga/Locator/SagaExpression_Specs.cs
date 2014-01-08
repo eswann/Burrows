@@ -34,7 +34,7 @@ namespace Burrows.Tests.Saga.Locator
             var initiatePolicy = new InitiatingSagaPolicy<SimpleSaga, InitiateSimpleSaga>(x => x.CorrelationId,
                 x => false);
 
-            _sagaId = NewId.NewId.NextGuid();
+            _sagaId = NewIds.NewId.NextGuid();
             _initiateSaga = new InitiateSimpleSaga {CorrelationId = _sagaId, Name = "Chris"};
             IConsumeContext<InitiateSimpleSaga> context = _initiateSaga.ToConsumeContext();
             _repository.GetSaga(context, _sagaId,

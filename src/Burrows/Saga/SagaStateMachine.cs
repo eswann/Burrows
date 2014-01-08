@@ -20,9 +20,7 @@ namespace Burrows.Saga
     using Magnum.StateMachine;
 
     [DebuggerDisplay("{CurrentState} - {typeof(T).Name}")]
-    public class SagaStateMachine<T> :
-        StateMachine<T>
-        where T : SagaStateMachine<T>
+    public class SagaStateMachine<T> : StateMachine<T> where T : SagaStateMachine<T>
     {
         private static readonly Cache<Event, IEventBinder<T>> _binders = new DictionaryCache<Event, IEventBinder<T>>();
         static Expression<Func<T, bool>> _completedExpression = x => false;

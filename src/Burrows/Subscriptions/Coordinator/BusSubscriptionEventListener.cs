@@ -52,7 +52,7 @@ namespace Burrows.Subscriptions.Coordinator
         UnsubscribeAction Subscribe<TMessage>(string correlationId)
             where TMessage : class
         {
-            Guid subscriptionId = NewId.NewId.NextGuid();
+            Guid subscriptionId = NewIds.NewId.NextGuid();
             string messageName = typeof (TMessage).ToMessageName();
 
             var subscribeTo = new SubscribeToMessage

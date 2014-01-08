@@ -15,9 +15,7 @@ namespace Burrows.Saga
     using System;
     using System.Linq.Expressions;
 
-    public class SagaFilter<TSaga> :
-		ISagaFilter<TSaga>
-		where TSaga : class, ISaga
+    public class SagaFilter<TSaga> : ISagaFilter<TSaga> where TSaga : class, ISaga
 	{
 		readonly Func<TSaga, bool> _filter;
 		readonly Expression<Func<TSaga, bool>> _filterExpression;

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Burrows.NHib.Tests</RootNamespace>
+    <AssemblyName>Burrows.NHib.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\tests\NHibernate\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>3001,3009</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\tests\NHibernate\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>3001,3009</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\..\packages\Magnum.2.1.2\lib\NET40\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum.TestFramework">
+      <HintPath>..\..\packages\Magnum.TestFramework.2.1.2\lib\NET40\Magnum.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\packages\System.Data.SQLite.1.0.90.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>..\..\packages\System.Data.SQLite.1.0.90.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContextSetup.cs" />
+    <Compile Include="DbQuery.cs" />
+    <Compile Include="Framework\TestConfigurator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sagas\Concurrency_Specs.cs" />
+    <Compile Include="Sagas\ConcurrentLegacySaga.cs" />
+    <Compile Include="Sagas\ConcurrentSaga.cs" />
+    <Compile Include="Sagas\GuidSave_Specs.cs" />
+    <Compile Include="Sagas\SagaLoadTest.cs" />
+    <Compile Include="Sagas\SagaLocator_Specs.cs" />
+    <Compile Include="Sagas\SagaRepository_Specs.cs" />
+    <Compile Include="Sagas\SimpleConfiguration_Specs.cs" />
+    <Compile Include="SingleConnectionSessionFactory.cs" />
+    <Compile Include="SqlLiteSessionFactoryProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sagas\RegisterUserStateMachine.hbm.xml" />
+    <EmbeddedResource Include="Sagas\TestSaga.hbm.xml" />
+    <Content Include="test.log4net.xml" />
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Burrows\Burrows.csproj">
+      <Project>{6efd69fc-cbcc-4f85-aee0-efba73f4d273}</Project>
+      <Name>Burrows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Loggers\Burrows.Log4Net\Burrows.Log4Net.csproj">
+      <Project>{8d2be372-a756-4676-b2ea-ed7846809bfe}</Project>
+      <Name>Burrows.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tests\Burrows.Tests.Framework\Burrows.Tests.Framework.csproj">
+      <Project>{3c4b5f1a-69ad-415e-9f40-a7fdbd7a3012}</Project>
+      <Name>Burrows.Tests.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tests\Burrows.Tests\Burrows.Tests.csproj">
+      <Project>{76646b96-936b-4d31-a053-35cd630e3c68}</Project>
+      <Name>Burrows.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Burrows.NHib\Burrows.NHib.csproj">
+      <Project>{f5dea73a-0880-4f1d-b183-65e8fe65e7a4}</Project>
+      <Name>Burrows.NHib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

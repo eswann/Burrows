@@ -61,7 +61,7 @@ namespace Burrows.Services.HealthMonitoring
             _heartbeatIntervalInSeconds = intervalInSeconds;
             _heartbeatIntervalInMilliseconds = (int) TimeSpan.FromSeconds(_heartbeatIntervalInSeconds).TotalMilliseconds;
 
-            SystemId = NewId.NewId.NextGuid();
+            SystemId = NewIds.NewId.NextGuid();
         }
 
         public Guid SystemId { get; private set; }

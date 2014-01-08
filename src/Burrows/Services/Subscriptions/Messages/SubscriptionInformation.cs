@@ -39,7 +39,7 @@ namespace Burrows.Services.Subscriptions.Messages
             CorrelationId = correlationId;
             EndpointUri = endpointUri;
 
-            SubscriptionId = NewId.NewId.NextGuid();
+            SubscriptionId = NewIds.NewId.NextGuid();
         }
 
         public SubscriptionInformation(Guid clientId, Guid subscriptionId, string messageName, string correlationId,

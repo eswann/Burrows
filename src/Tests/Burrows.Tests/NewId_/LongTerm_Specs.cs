@@ -11,8 +11,8 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using Burrows.NewId;
-using Burrows.NewId.NewIdProviders;
+using Burrows.NewIds;
+using Burrows.NewIds.NewIdProviders;
 
 namespace Burrows.Tests.NewId_
 {
@@ -31,7 +31,7 @@ namespace Burrows.Tests.NewId_
 
             int limit = 1024;
 
-            var ids = new NewId.NewId[limit];
+            var ids = new NewIds.NewId[limit];
             for (int i = 0; i < limit; i++)
                 ids[i] = generator.Next();
 
