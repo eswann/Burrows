@@ -14,7 +14,7 @@ task Clean -depends Init {
                 ri $ArchiveDir -Recurse
         }
         
-        ri Burrows*.nupkg
+        ri output\Burrows*.nupkg
 }
 
 task Build -depends Init,Clean {
@@ -31,6 +31,6 @@ task Pack -depends Build {
 }
 
 task Publish -depends Pack {
-        $PackageName = gci "$NuGetPackageName.nupkg" 
-        exec { nuget push "Output\$PackageName" }
+        $PackageName = gci output\$NuGetPackageName.*.nupkg 
+        exec { nuget push $PackageName }
 }
