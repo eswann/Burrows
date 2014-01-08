@@ -10,12 +10,14 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
+
+using Burrows.Log4Net.Logging;
+
 namespace Burrows.Tests
 {
     using System;
     using System.Diagnostics;
     using System.IO;
-    using Log4NetIntegration.Logging;
     using Logging;
     using NUnit.Framework;
     using log4net;

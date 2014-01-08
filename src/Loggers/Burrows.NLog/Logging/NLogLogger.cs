@@ -10,16 +10,18 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Burrows.NLogIntegration.Logging
-{
-    using System;
-    using Burrows.Logging;
-    using NLog;
-    using Util;
 
+using System;
+using Burrows.Logging;
+using Burrows.Util;
+using NLog;
+using Logger = NLog.Logger;
+
+namespace Burrows.NLog.Logging
+{
     public class NLogLogger : ILogger
     {
-        private readonly Func<string, NLog.Logger> _logFactory;
+        private readonly Func<string, Logger> _logFactory;
  
         public NLogLogger([NotNull] LogFactory factory)
         {

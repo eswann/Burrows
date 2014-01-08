@@ -24,7 +24,7 @@ namespace Burrows.Transports.Loopback
         public LoopbackMessage()
         {
             Body = new MemoryStream();
-            MessageId = NewId.Next().ToString();
+            MessageId = NewId.NewId.Next().ToString();
         }
 
         public Stream Body

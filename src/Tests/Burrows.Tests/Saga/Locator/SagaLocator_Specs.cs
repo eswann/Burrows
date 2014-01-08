@@ -28,7 +28,7 @@ namespace Burrows.Tests.Saga.Locator
         [SetUp]
         public void Setup()
         {
-            _sagaId = NewId.NextGuid();
+            _sagaId = NewId.NewId.NextGuid();
 
             _repository = new InMemorySagaRepository<TestSaga>();
 
@@ -42,7 +42,7 @@ namespace Burrows.Tests.Saga.Locator
                 (i, c) => InstanceHandlerSelector.ForDataEvent(i, TestSaga.Initiate), initiatePolicy)
                 .Each(x => x(context));
 
-            message = new InitiateSimpleSaga(NewId.NextGuid());
+            message = new InitiateSimpleSaga(NewId.NewId.NextGuid());
             context = message.ToConsumeContext();
             _repository.GetSaga(context, message.CorrelationId,
                 (i, c) => InstanceHandlerSelector.ForDataEvent(i, TestSaga.Initiate), initiatePolicy)

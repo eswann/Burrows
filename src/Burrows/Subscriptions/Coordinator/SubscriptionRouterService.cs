@@ -35,7 +35,7 @@ namespace Burrows.Subscriptions.Coordinator
         {
             _peerUri = bus.ControlBus.Endpoint.Address.Uri;
             _network = network;
-            _peerId = NewId.NextGuid();
+            _peerId = NewId.NewId.NextGuid();
 
             _observers = new List<ISubscriptionObserver>();
             _listeners = new List<BusSubscriptionEventListener>();

@@ -27,7 +27,7 @@ namespace Burrows.Services.Subscriptions.Messages
             Subscription = subscription;
 
             if (Subscription.SubscriptionId == Guid.Empty)
-                Subscription.SubscriptionId = NewId.NextGuid();
+                Subscription.SubscriptionId = NewId.NewId.NextGuid();
         }
 
         public SubscriptionInformation Subscription { get; set; }

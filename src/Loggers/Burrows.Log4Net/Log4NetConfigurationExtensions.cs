@@ -11,15 +11,14 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.IO;
 using Burrows.Configuration.BusConfigurators;
+using Burrows.Log4Net.Logging;
+using Burrows.Util;
 
-namespace Burrows.Log4NetIntegration
+namespace Burrows.Log4Net
 {
-    using System;
-    using System.IO;
-    using Logging;
-    using Util;
-
     /// <summary>
     /// Extensions for configuring Burrows for log4net
     /// </summary>

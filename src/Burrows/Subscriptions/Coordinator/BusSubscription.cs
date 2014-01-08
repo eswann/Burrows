@@ -77,7 +77,7 @@ namespace Burrows.Subscriptions.Coordinator
                     return;
             }
 
-            _subscriptionId = NewId.NextGuid();
+            _subscriptionId = NewId.NewId.NextGuid();
             _endpointUri = added.EndpointUri;
 
             var add = new SubscriptionAddedMessage

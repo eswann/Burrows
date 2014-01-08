@@ -61,9 +61,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Magnum">
-      <HintPath>..\..\packages\Magnum.2.1.2\lib\NET40\Magnum.dll</HintPath>
-    </Reference>
     <Reference Include="Magnum, Version=2.1.2.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Magnum.2.1.2\lib\NET40\Magnum.dll</HintPath>
@@ -106,13 +103,13 @@
     <Compile Include="UriExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Loggers\Burrows.Log4NetIntegration\Burrows.Log4NetIntegration.csproj">
-      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
-      <Name>Burrows.Log4NetIntegration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Burrows\Burrows.csproj">
       <Project>{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}</Project>
       <Name>Burrows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Loggers\Burrows.Log4Net\Burrows.Log4Net.csproj">
+      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
+      <Name>Burrows.Log4Net</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

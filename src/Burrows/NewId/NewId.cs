@@ -10,12 +10,13 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Burrows
-{
-    using System;
-    using NewIdFormatters;
-    using NewIdProviders;
 
+using System;
+using Burrows.NewId.NewIdFormatters;
+using Burrows.NewId.NewIdProviders;
+
+namespace Burrows.NewId
+{
     /// <summary>
     /// A NewId is a type that fits into the same space as a Guid/Uuid/uniqueidentifier,
     /// but is guaranteed to be both unique and ordered, assuming it is generated using

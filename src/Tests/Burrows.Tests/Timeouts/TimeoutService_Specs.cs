@@ -40,7 +40,7 @@ namespace Burrows.Tests.Timeouts
         {
             base.EstablishContext();
 
-            _correlationId = NewId.NextGuid();
+            _correlationId = NewId.NewId.NextGuid();
 
             _timeoutSagaRepository = SetupSagaRepository<TimeoutSaga>();
 

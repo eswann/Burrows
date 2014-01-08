@@ -79,7 +79,7 @@ namespace Burrows.Endpoints
             _connectionFactory = connectionFactory;
 
             if (name == "*")
-                name = NewId.Next().ToString("NS");
+                name = NewId.NewId.Next().ToString("NS");
 
             _name = name;
 
@@ -260,7 +260,7 @@ namespace Burrows.Endpoints
                 string uri = address.GetLeftPart(UriPartial.Path);
                 if (uri.EndsWith("*"))
                 {
-                    name = NewId.Next().ToString("NS");
+                    name = NewId.NewId.Next().ToString("NS");
                     uri = uri.Remove(uri.Length - 1) + name;
 
                     var builder = new UriBuilder(uri);

@@ -91,6 +91,10 @@
       <Project>{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}</Project>
       <Name>Burrows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Burrows.Autofac\Burrows.Autofac.csproj">
+      <Project>{a31f2c6b-c806-46fd-a4f3-c54209dd495c}</Project>
+      <Name>Burrows.Autofac</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -115,13 +115,13 @@
     <Compile Include="When_a_message_is_published_to_a_subclass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Loggers\Burrows.Log4NetIntegration\Burrows.Log4NetIntegration.csproj">
-      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
-      <Name>Burrows.Log4NetIntegration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Burrows\Burrows.csproj">
       <Project>{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}</Project>
       <Name>Burrows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Loggers\Burrows.Log4Net\Burrows.Log4Net.csproj">
+      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
+      <Name>Burrows.Log4Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\Burrows.Tests.Framework\Burrows.Tests.Framework.csproj">
       <Project>{3c4b5f1a-69ad-415e-9f40-a7fdbd7a3012}</Project>

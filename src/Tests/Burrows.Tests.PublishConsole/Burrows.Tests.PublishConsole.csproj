@@ -134,10 +134,6 @@
       <Project>{6efd69fc-cbcc-4f85-aee0-efba73f4d273}</Project>
       <Name>Burrows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Loggers\Burrows.Log4NetIntegration\Burrows.Log4NetIntegration.csproj">
-      <Project>{8d2be372-a756-4676-b2ea-ed7846809bfe}</Project>
-      <Name>Burrows.Log4NetIntegration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Burrows.Tests.Messages\Burrows.Tests.Messages.csproj">
       <Project>{9b002752-c3cc-4e96-b03c-0d10d7533842}</Project>
       <Name>Burrows.Tests.Messages</Name>

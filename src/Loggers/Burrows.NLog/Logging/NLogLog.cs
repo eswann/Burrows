@@ -10,25 +10,26 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Burrows.NLogIntegration.Logging
-{
-    using System;
-    using Burrows.Logging;
-    using NLog;
-    using Util;
 
+using System;
+using Burrows.Logging;
+using Burrows.Util;
+using NLog;
+
+namespace Burrows.NLog.Logging
+{
     /// <summary>
     /// A logger that wraps to NLog. See http://stackoverflow.com/questions/7412156/how-to-retain-callsite-information-when-wrapping-nlog
     /// </summary>
     public class NLogLog : ILog
     {
-        private readonly NLog.Logger _log;
+        private readonly global::NLog.Logger _log;
 
         /// <summary>
         /// Create a new NLog logger instance.
         /// </summary>
         /// <param name="name">Name of type to log as.</param>
-        public NLogLog([NotNull] NLog.Logger log, [NotNull] string name)
+        public NLogLog([NotNull] global::NLog.Logger log, [NotNull] string name)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
@@ -88,12 +89,12 @@ namespace Burrows.NLogIntegration.Logging
 
         public void Debug(object message)
         {
-            _log.Log(NLog.LogLevel.Debug, message);
+            _log.Log(global::NLog.LogLevel.Debug, message);
         }
 
         public void Debug(object message, Exception exception)
         {
-            _log.LogException(NLog.LogLevel.Debug, message == null ? "" : message.ToString(), exception);
+            _log.LogException(global::NLog.LogLevel.Debug, message == null ? "" : message.ToString(), exception);
         }
 
         public void Debug(LogOutputProvider messageProvider)
@@ -103,12 +104,12 @@ namespace Burrows.NLogIntegration.Logging
 
         public void Info(object message)
         {
-            _log.Log(NLog.LogLevel.Info, message);
+            _log.Log(global::NLog.LogLevel.Info, message);
         }
 
         public void Info(object message, Exception exception)
         {
-            _log.LogException(NLog.LogLevel.Info, message == null ? "" : message.ToString(), exception);
+            _log.LogException(global::NLog.LogLevel.Info, message == null ? "" : message.ToString(), exception);
         }
 
         public void Info(LogOutputProvider messageProvider)
@@ -118,12 +119,12 @@ namespace Burrows.NLogIntegration.Logging
 
         public void Warn(object message)
         {
-            _log.Log(NLog.LogLevel.Warn, message);
+            _log.Log(global::NLog.LogLevel.Warn, message);
         }
 
         public void Warn(object message, Exception exception)
         {
-            _log.LogException(NLog.LogLevel.Warn, message == null ? "" : message.ToString(), exception);
+            _log.LogException(global::NLog.LogLevel.Warn, message == null ? "" : message.ToString(), exception);
         }
 
         public void Warn(LogOutputProvider messageProvider)
@@ -133,12 +134,12 @@ namespace Burrows.NLogIntegration.Logging
 
         public void Error(object message)
         {
-            _log.Log(NLog.LogLevel.Error, message);
+            _log.Log(global::NLog.LogLevel.Error, message);
         }
 
         public void Error(object message, Exception exception)
         {
-            _log.LogException(NLog.LogLevel.Error, message == null ? "" : message.ToString(), exception);
+            _log.LogException(global::NLog.LogLevel.Error, message == null ? "" : message.ToString(), exception);
         }
 
         public void Error(LogOutputProvider messageProvider)
@@ -148,12 +149,12 @@ namespace Burrows.NLogIntegration.Logging
 
         public void Fatal(object message)
         {
-            _log.Log(NLog.LogLevel.Fatal, message);
+            _log.Log(global::NLog.LogLevel.Fatal, message);
         }
 
         public void Fatal(object message, Exception exception)
         {
-            _log.LogException(NLog.LogLevel.Fatal, message == null ? "" : message.ToString(), exception);
+            _log.LogException(global::NLog.LogLevel.Fatal, message == null ? "" : message.ToString(), exception);
         }
 
         public void Fatal(LogOutputProvider messageProvider)
@@ -163,70 +164,70 @@ namespace Burrows.NLogIntegration.Logging
 
         public void DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Debug, formatProvider, format, args);
+            _log.Log(global::NLog.LogLevel.Debug, formatProvider, format, args);
         }
 
         public void DebugFormat(string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Debug, format, args);
+            _log.Log(global::NLog.LogLevel.Debug, format, args);
         }
 
         public void InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Info, formatProvider, format, args);
+            _log.Log(global::NLog.LogLevel.Info, formatProvider, format, args);
         }
 
         public void InfoFormat(string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Info, format, args);
+            _log.Log(global::NLog.LogLevel.Info, format, args);
         }
 
         public void WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Warn, formatProvider, format, args);
+            _log.Log(global::NLog.LogLevel.Warn, formatProvider, format, args);
         }
 
         public void WarnFormat(string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Warn, format, args);
+            _log.Log(global::NLog.LogLevel.Warn, format, args);
         }
 
         public void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Error, formatProvider, format, args);
+            _log.Log(global::NLog.LogLevel.Error, formatProvider, format, args);
         }
 
         public void ErrorFormat(string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Error, format, args);
+            _log.Log(global::NLog.LogLevel.Error, format, args);
         }
 
         public void FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Fatal, formatProvider, format, args);
+            _log.Log(global::NLog.LogLevel.Fatal, formatProvider, format, args);
         }
 
         public void FatalFormat(string format, params object[] args)
         {
-            _log.Log(NLog.LogLevel.Fatal, format, args);
+            _log.Log(global::NLog.LogLevel.Fatal, format, args);
         }
 
-        NLog.LogLevel GetNLogLevel(Burrows.Logging.LogLevel level)
+        global::NLog.LogLevel GetNLogLevel(Burrows.Logging.LogLevel level)
         {
             if (level == Burrows.Logging.LogLevel.Fatal)
-                return NLog.LogLevel.Fatal;
+                return global::NLog.LogLevel.Fatal;
             if (level == Burrows.Logging.LogLevel.Error)
-                return NLog.LogLevel.Error;
+                return global::NLog.LogLevel.Error;
             if (level == Burrows.Logging.LogLevel.Warn)
-                return NLog.LogLevel.Warn;
+                return global::NLog.LogLevel.Warn;
             if (level == Burrows.Logging.LogLevel.Info)
-                return NLog.LogLevel.Info;
+                return global::NLog.LogLevel.Info;
             if (level == Burrows.Logging.LogLevel.Debug)
-                return NLog.LogLevel.Debug;
+                return global::NLog.LogLevel.Debug;
             if (level == Burrows.Logging.LogLevel.All)
-                return NLog.LogLevel.Trace;
+                return global::NLog.LogLevel.Trace;
 
-            return NLog.LogLevel.Off;
+            return global::NLog.LogLevel.Off;
         }
 
         LogMessageGenerator ToGenerator(LogOutputProvider provider)

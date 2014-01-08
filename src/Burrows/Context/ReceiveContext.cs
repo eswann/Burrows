@@ -39,7 +39,7 @@ namespace Burrows.Context
 
         ReceiveContext()
         {
-            Id = NewId.NextGuid();
+            Id = NewId.NewId.NextGuid();
             
             _faultActions = new List<Action>();
             _timer = Stopwatch.StartNew();

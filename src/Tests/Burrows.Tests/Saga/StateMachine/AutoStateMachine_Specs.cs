@@ -42,7 +42,7 @@ namespace Burrows.Tests.Saga.StateMachine
             LocalBus.SubscribeHandler<SendUserVerificationEmail>(
                 x => LocalBus.Publish(new UserVerificationEmailSent(x.CorrelationId, x.Email)));
 
-            _transactionId = NewId.NextGuid();
+            _transactionId = NewId.NewId.NextGuid();
             _username = "jblow";
             _password = "password1";
             _email = "jblow@yourdad.com";

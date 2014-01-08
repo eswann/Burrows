@@ -10,6 +10,9 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
+
+using Burrows.NewId.NewIdProviders;
+
 namespace Burrows.Tests.NewId_
 {
     using System;
@@ -17,7 +20,6 @@ namespace Burrows.Tests.NewId_
     using System.Management;
     using System.Net.NetworkInformation;
     using NUnit.Framework;
-    using NewIdProviders;
 
     [TestFixture]
     public class When_getting_a_network_address_for_the_id_generator

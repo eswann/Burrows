@@ -21,7 +21,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_format_just_like_a_default_guid_formatter()
         {
-            var newId = new NewId();
+            var newId = new NewId.NewId();
 
             Assert.AreEqual("00000000-0000-0000-0000-000000000000", newId.ToString());
         }
@@ -29,7 +29,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_format_just_like_a_fancy_guid_formatter()
         {
-            var newId = new NewId();
+            var newId = new NewId.NewId();
 
             Assert.AreEqual("{00000000-0000-0000-0000-000000000000}", newId.ToString("B"));
         }
@@ -37,7 +37,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_format_just_like_a_narrow_guid_formatter()
         {
-            var newId = new NewId();
+            var newId = new NewId.NewId();
 
             Assert.AreEqual("00000000000000000000000000000000", newId.ToString("N"));
         }
@@ -45,7 +45,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_format_just_like_a_parenthesis_guid_formatter()
         {
-            var newId = new NewId();
+            var newId = new NewId.NewId();
 
             Assert.AreEqual("(00000000-0000-0000-0000-000000000000)", newId.ToString("P"));
         }
@@ -55,7 +55,7 @@ namespace Burrows.Tests.NewId_
         {
             Guid g = Guid.NewGuid();
 
-            var n = new NewId(g.ToByteArray());
+            var n = new NewId.NewId(g.ToByteArray());
 
             string gs = g.ToString("d");
             string ns = n.ToString("d");

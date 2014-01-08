@@ -10,6 +10,9 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
+
+using Burrows.NewId;
+
 namespace Burrows.Tests.NewId_
 {
     using System;
@@ -23,7 +26,7 @@ namespace Burrows.Tests.NewId_
         {
             Guid g = Guid.NewGuid();
 
-            NewId n = g.ToNewId();
+            NewId.NewId n = g.ToNewId();
 
             string ns = n.ToString();
             string gs = g.ToString();
@@ -34,7 +37,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_convert_to_guid_quickly()
         {
-            NewId n = NewId.Next();
+            NewId.NewId n = NewId.NewId.Next();
 
             Guid g = n.ToGuid();
 
@@ -47,7 +50,7 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_display_sequentially_for_newid()
         {
-            NewId id = NewId.Next();
+            NewId.NewId id = NewId.NewId.Next();
 
             Console.WriteLine(id.ToString("DS"));
         }
@@ -57,7 +60,7 @@ namespace Burrows.Tests.NewId_
         {
             Guid g = Guid.NewGuid();
 
-            var n = new NewId(g.ToByteArray());
+            var n = new NewId.NewId(g.ToByteArray());
 
             var gn = new Guid(n.ToByteArray());
 
@@ -70,7 +73,7 @@ namespace Burrows.Tests.NewId_
             var bytes = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 14, 15};
 
             var g = new Guid(bytes);
-            var n = new NewId(bytes);
+            var n = new NewId.NewId(bytes);
 
             string gs = g.ToString("B");
             string ns = n.ToString("B");
@@ -84,7 +87,7 @@ namespace Burrows.Tests.NewId_
             var bytes = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 14, 15};
 
             var g = new Guid(bytes);
-            var n = new NewId(bytes);
+            var n = new NewId.NewId(bytes);
 
             string gs = g.ToString("d");
             string ns = n.ToString("d");
@@ -98,7 +101,7 @@ namespace Burrows.Tests.NewId_
             var bytes = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 14, 15};
 
             var g = new Guid(bytes);
-            var n = new NewId(bytes);
+            var n = new NewId.NewId(bytes);
 
             string gs = g.ToString("N");
             string ns = n.ToString("N");
@@ -112,7 +115,7 @@ namespace Burrows.Tests.NewId_
             var bytes = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 14, 15};
 
             var g = new Guid(bytes);
-            var n = new NewId(bytes);
+            var n = new NewId.NewId(bytes);
 
             string gs = g.ToString("P");
             string ns = n.ToString("P");
@@ -123,13 +126,13 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_properly_handle_string_passthrough()
         {
-            NewId n = NewId.Next();
+            NewId.NewId n = NewId.NewId.Next();
 
             string ns = n.ToString("D");
 
             var g = new Guid(ns);
 
-            var nn = new NewId(g.ToString("D"));
+            var nn = new NewId.NewId(g.ToString("D"));
 
             Assert.AreEqual(n, nn);
         }
@@ -138,7 +141,7 @@ namespace Burrows.Tests.NewId_
         public void Should_support_the_same_constructor()
         {
             var guid = new Guid(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-            var newid = new NewId(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+            var newid = new NewId.NewId(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
 
             Assert.AreEqual(guid.ToString(), newid.ToString());
         }
@@ -146,11 +149,11 @@ namespace Burrows.Tests.NewId_
         [Test]
         public void Should_work_from_newid_to_guid_to_newid()
         {
-            NewId n = NewId.Next();
+            NewId.NewId n = NewId.NewId.Next();
 
             var g = new Guid(n.ToByteArray());
 
-            var ng = new NewId(g.ToByteArray());
+            var ng = new NewId.NewId(g.ToByteArray());
 
             Console.WriteLine(g.ToString("D"));
 

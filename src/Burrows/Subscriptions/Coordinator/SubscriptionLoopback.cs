@@ -32,7 +32,7 @@ namespace Burrows.Subscriptions.Coordinator
         public SubscriptionLoopback(IServiceBus bus, ISubscriptionRouter router)
         {
             _router = router;
-            _peerId = NewId.NextGuid();
+            _peerId = NewId.NewId.NextGuid();
 
             _waiting = new List<Action<ISubscriptionRouter>>();
 

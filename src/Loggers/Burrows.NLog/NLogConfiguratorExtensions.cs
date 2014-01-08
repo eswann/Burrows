@@ -12,13 +12,12 @@
 // specific language governing permissions and limitations under the License.
 
 using Burrows.Configuration.BusConfigurators;
+using Burrows.NLog.Logging;
+using Burrows.Util;
+using NLog;
 
-namespace Burrows.NLogIntegration
+namespace Burrows.NLog
 {
-    using Logging;
-    using NLog;
-    using Util;
-
     /// <summary>
 	/// Extensions for configuring NLog with Burrows
 	/// </summary>

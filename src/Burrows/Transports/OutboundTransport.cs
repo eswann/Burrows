@@ -58,7 +58,7 @@ namespace Burrows.Transports
                     IBasicProperties properties = _producer.CreateProperties();
 
                     properties.SetPersistent(true);
-                    properties.MessageId = context.MessageId ?? properties.MessageId ?? NewId.Next().ToString();
+                    properties.MessageId = context.MessageId ?? properties.MessageId ?? NewId.NewId.Next().ToString();
                     if (context.ExpirationTime.HasValue)
                     {
                         DateTime value = context.ExpirationTime.Value;

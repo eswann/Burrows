@@ -10,14 +10,15 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Burrows.Log4NetIntegration.Logging
-{
-    using System;
-    using System.IO;
-    using Burrows.Logging;
-    using log4net;
-    using log4net.Config;
 
+using System;
+using System.IO;
+using Burrows.Logging;
+using log4net;
+using log4net.Config;
+
+namespace Burrows.Log4Net.Logging
+{
     public class Log4NetLogger : ILogger
     {
         public Burrows.Logging.ILog Get(string name)

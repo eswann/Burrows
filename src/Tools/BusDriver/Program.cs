@@ -12,6 +12,7 @@
 // specific language governing permissions and limitations under the License.
 
 using Burrows.Configuration;
+using Burrows.Log4Net.Logging;
 
 namespace BusDriver
 {
@@ -22,7 +23,6 @@ namespace BusDriver
     using Magnum.CommandLineParser;
     using Magnum.Extensions;
     using Burrows;
-    using Burrows.Log4NetIntegration.Logging;
     using Burrows.Logging;
     using Burrows.Transports;
     using Burrows.Transports.Configuration.Extensions;

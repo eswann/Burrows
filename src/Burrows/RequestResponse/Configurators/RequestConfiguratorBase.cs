@@ -33,7 +33,7 @@ namespace Burrows.RequestResponse.Configurators
         protected RequestConfiguratorBase(TRequest message)
         {
             _message = message;
-            _requestId = NewId.NextGuid().ToString();
+            _requestId = NewId.NewId.NextGuid().ToString();
             Timeout = TimeSpan.FromMilliseconds(-1);
 
             _contextActions = new List<Action<ISendContext<TRequest>>>();

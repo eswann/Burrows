@@ -33,7 +33,7 @@ namespace Burrows.Transports.Bindings
         {
             _address = address;
             _purgeOnBind = purgeOnBind;
-            _consumerTag = NewId.NextGuid().ToString();
+            _consumerTag = NewId.NewId.NextGuid().ToString();
         }
 
         public void Bind(TransportConnection connection)
