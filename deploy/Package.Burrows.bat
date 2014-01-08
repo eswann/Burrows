@@ -12,4 +12,7 @@ powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\package.ps1 -
 powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\package.ps1 -PackageName 'Burrows.NLog'; exit $error.Count}"
 
 
+powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\package.ps1 -PackageName 'Burrows.NHib'; exit $error.Count}"
+
+
 pause

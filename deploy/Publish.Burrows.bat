@@ -11,4 +11,7 @@ powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\publish.ps1 -
 
 powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\publish.ps1 -PackageName 'Burrows.Log4Net'; exit $error.Count}"
 
+
+powershell -NoProfile -ExecutionPolicy unrestricted -Command "& {.\publish.ps1 -PackageName 'Burrows.NHib'; exit $error.Count}"
+
 pause
