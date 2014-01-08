@@ -7,6 +7,7 @@
         <authors>eric_swann</authors>
         <owners>eric_swann</owners>
         <projectUrl>https://github.com/eswann/Burrows</projectUrl>
+        <iconUrl>http://upload.wikimedia.org/wikipedia/commons/4/49/William_S._Burroughs_at_the_Gotham_Book_Mart.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <summary>$description$</summary>
