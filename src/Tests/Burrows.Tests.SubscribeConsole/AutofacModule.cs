@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Autofac;
-using Burrows.AutofacIntegration;
+using Burrows.Autofac;
 using Burrows.Configuration;
 using Burrows.Log4NetIntegration;
 using Burrows.Transports.Configuration.Extensions;

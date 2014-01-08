@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows", "Burrows\Burrows.csproj", "{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.AutofacIntegration", "Containers\Burrows.AutofacIntegration\Burrows.AutofacIntegration.csproj", "{A31F2C6B-C806-46FD-A4F3-C54209DD495C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.Autofac", "Containers\Burrows.AutofacIntegration\Burrows.Autofac.csproj", "{A31F2C6B-C806-46FD-A4F3-C54209DD495C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{02C3B269-A00C-42D9-B4E8-EA7E6C233EBB}"
 EndProject

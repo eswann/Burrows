@@ -11,17 +11,16 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using Autofac;
 using Burrows.Configuration.SubscriptionConfigurators;
+using Burrows.Saga;
+using Burrows.Saga.Configuration;
+using Burrows.Util;
+using Magnum.Reflection;
 
-namespace Burrows.AutofacIntegration
+namespace Burrows.Autofac
 {
-    using System;
-    using Autofac;
-    using Magnum.Reflection;
-    using Saga;
-    using Saga.Configuration;
-    using Util;
-
     public class AutofacSagaRepositoryFactoryConfigurator
 	{
 		private readonly ISubscriptionBusServiceConfigurator _configurator;

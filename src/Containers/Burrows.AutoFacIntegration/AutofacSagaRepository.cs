@@ -10,16 +10,17 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Burrows.AutofacIntegration
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Autofac;
-    using Context;
-    using Pipeline;
-    using Saga;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Autofac;
+using Burrows.Context;
+using Burrows.Pipeline;
+using Burrows.Saga;
+
+namespace Burrows.Autofac
+{
     public class AutofacSagaRepository<T> :
         ISagaRepository<T>
         where T : class, ISaga

@@ -16,7 +16,6 @@ using Burrows.Configuration.SubscriptionConfigurators;
 namespace Burrows.Containers.Tests
 {
     using Autofac;
-    using AutofacIntegration;
     using Magnum.TestFramework;
     using Saga;
     using Scenarios;

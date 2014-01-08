@@ -91,9 +91,9 @@
       <Project>{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}</Project>
       <Name>Burrows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Burrows.AutofacIntegration\Burrows.AutofacIntegration.csproj">
+    <ProjectReference Include="..\Burrows.AutofacIntegration\Burrows.Autofac.csproj">
       <Project>{A31F2C6B-C806-46FD-A4F3-C54209DD495C}</Project>
-      <Name>Burrows.AutofacIntegration</Name>
+      <Name>Burrows.Autofac</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

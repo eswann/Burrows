@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
+[assembly: AssemblyDescription("Burrows is a distributed application framework for .NET based on MassTransit: http://masstransit-project.com")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("1bc31ebf-ea35-4389-8bae-1ced4544e3f6")]

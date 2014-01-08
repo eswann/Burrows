@@ -11,21 +11,20 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Autofac;
+using Autofac.Core;
 using Burrows.Configuration;
 using Burrows.Configuration.SubscriptionConfigurators;
+using Burrows.Saga;
+using Burrows.Saga.Configuration;
+using Burrows.Saga.SubscriptionConfigurators;
+using Magnum.Extensions;
 
-namespace Burrows.AutofacIntegration
+namespace Burrows.Autofac
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Autofac;
-    using Autofac.Core;
-    using Magnum.Extensions;
-    using Saga;
-    using Saga.Configuration;
-    using Saga.SubscriptionConfigurators;
-
     public static class AutofacExtensions
     {
         /// <summary>
