@@ -49,10 +49,12 @@ namespace Burrows.Publishing
         private readonly PublishSettings _publishSettings;
         private IServiceBus _serviceBus;
         
-        public Publisher(Action<IServiceBusConfigurator> busConfigureAction, Action<PublishSettings> settingsConfigureAction)
+        public Publisher(Action<IServiceBusConfigurator> busConfigureAction, Action<PublishSettings> publishConfigureAction = null)
         {
             _publishSettings = new PublishSettings();
-            settingsConfigureAction(_publishSettings);
+            if (publishConfigureAction != null)
+                publishConfigureAction(_publishSettings);
+
             _publishSettings.Validate();
 
             Initialize(busConfigureAction);
