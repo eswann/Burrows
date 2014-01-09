@@ -124,28 +124,28 @@
     <Compile Include="NewIds\NewIdProviders\BestPossibleWorkerIdProvider.cs" />
     <Compile Include="NewIds\NewIdProviders\HostNameSHA1WorkerIdProvider.cs" />
     <Compile Include="NewIds\NewIdProviders\WMINetworkAddressWorkerIdProvider.cs" />
-    <Compile Include="PublisherConfirms\BackingStores\BackingStoreMethod.cs" />
-    <Compile Include="PublisherConfirms\BackingStores\IUnconfirmedMessageRepository.cs">
+    <Compile Include="Publishing\BackingStores\BackingStoreMethod.cs" />
+    <Compile Include="Publishing\BackingStores\IUnconfirmedMessageRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PublisherConfirms\BackingStores\UnconfirmedMessageMemoryRepository.cs">
+    <Compile Include="Publishing\BackingStores\UnconfirmedMessageMemoryRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PublisherConfirms\ConfirmableMessage.cs">
+    <Compile Include="Publishing\ConfirmableMessage.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PublisherConfirms\Confirmer.cs">
+    <Compile Include="Publishing\Confirmer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PublisherConfirms\IConfirmer.cs">
+    <Compile Include="Publishing\IConfirmer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration\PublishingConfigurationExtensions.cs" />
-    <Compile Include="PublisherConfirms\IPublisher.cs" />
-    <Compile Include="PublisherConfirms\Publisher.cs" />
-    <Compile Include="PublisherConfirms\PublishSettings.cs" />
-    <Compile Include="PublisherConfirms\BackingStores\UnconfirmedMessageFileRepository.cs" />
-    <Compile Include="PublisherConfirms\BackingStores\UnconfirmedMessageRepositoryFactory.cs" />
+    <Compile Include="Publishing\IPublisher.cs" />
+    <Compile Include="Publishing\Publisher.cs" />
+    <Compile Include="Publishing\PublishSettings.cs" />
+    <Compile Include="Publishing\BackingStores\UnconfirmedMessageFileRepository.cs" />
+    <Compile Include="Publishing\BackingStores\UnconfirmedMessageRepositoryFactory.cs" />
     <Compile Include="Serialization\NonClosingStream.cs" />
     <Compile Include="Serialization\IMessageSerializer.cs" />
     <Compile Include="Configuration\Configuration\InterceptingConsumerFactory.cs" />

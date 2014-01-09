@@ -1,7 +1,7 @@
 ﻿using System;
 using Burrows.Configuration;
 using Burrows.Log4Net;
-using Burrows.PublisherConfirms;
+using Burrows.Publishing;
 using Burrows.Tests.Messages;
 
 namespace Burrows.Tests.PublishConsole

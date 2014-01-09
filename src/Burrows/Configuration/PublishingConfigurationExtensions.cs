@@ -12,8 +12,8 @@
 // specific language governing permissions and limitations under the License.
 
 using Burrows.Configuration.BusConfigurators;
-using Burrows.PublisherConfirms;
-using Burrows.PublisherConfirms.BackingStores;
+using Burrows.Publishing;
+using Burrows.Publishing.BackingStores;
 using Burrows.Transports.Configuration.Extensions;
 
 namespace Burrows.Configuration
