@@ -3,13 +3,12 @@
 Burrows is a .Net service bus based on the popular MassTransit service bus.
 
 What is the difference?
-
-Burrows is .Net 4.5 and up.  Why?  Because we wanted to make better use of the Async/Await and the related extensions.  
+Burrows is .Net 4.5 and up.  Why?  Because we wanted to make better use of the Async/Await and the related extensions.
 Yes we understand that Async can now be added in .Net 4.0 via the Async Targetting Pack...but we're sticking with 4.5 for now.
 
-Burrows is RabbitMQ only whereas MassTransit covers a variety of transports.  
-This allows Burrows to simplify the codebase substantially in order to focus exclusively on Rabbit.  
-As a result, Burrows provides a more full featured implementation of Rabbit including better support for publisher confirms while retaining the awesome polymorphic MassTransit routing setup.
+Burrows is RabbitMQ only whereas MassTransit covers a variety of transports. This allows Burrows to simplify the codebase substantially 
+in order to focus exclusively on Rabbit. As a result, Burrows provides a more full featured implementation of Rabbit including better 
+support for publisher confirms while retaining the awesome polymorphic MassTransit routing setup.
 
 ##How Do I Get Started?
 
