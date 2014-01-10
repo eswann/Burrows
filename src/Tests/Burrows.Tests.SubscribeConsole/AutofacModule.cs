@@ -2,8 +2,6 @@
 using Autofac;
 using Burrows.Autofac;
 using Burrows.Configuration;
-using Burrows.Log4Net;
-using Burrows.Transports.Configuration.Extensions;
 using Magnum.Extensions;
 using Module = Autofac.Module;
 
@@ -26,14 +24,17 @@ namespace Burrows.Tests.SubscribeConsole
                    .Where(t => t.Implements<IConsumer>())
                    .AsSelf();
 
-            builder.Register(c => ServiceBusFactory.New(sbc =>
-                {
-                    sbc.ReceiveFrom(@"rabbitmq://localhost/SubscribeConsole");
-                    sbc.UseRabbitMq();
-                    sbc.UseControlBus();
-                    sbc.Subscribe(subs => subs.LoadFrom(c.Resolve<ILifetimeScope>()));
-                    sbc.UseLog4Net();
-                })).SingleInstance();
+            builder.Register(c => ServiceBusFactory.New(sbc => sbc.Configure(@"rabbitmq://localhost/SubscribeConsole",
+                subs => subs.LoadFrom(c.Resolve<ILifetimeScope>())))).SingleInstance();
+
+            //This is the same as:
+            //builder.Register(c => ServiceBusFactory.New(sbc =>
+            //{
+            //    sbc.ReceiveFrom(@"rabbitmq://localhost/SubscribeConsole");
+            //    sbc.UseRabbitMq();
+            //    sbc.UseControlBus();
+            //    sbc.Subscribe(subs => subs.LoadFrom(c.Resolve<ILifetimeScope>()));
+            //})).SingleInstance();
 
         }
     }

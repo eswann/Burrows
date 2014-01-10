@@ -52,3 +52,54 @@ The second constructor parameter to the publisher enables publisher confirms to 
 The call to UsePublisherConfirms accepts an argument which tells this publisher what to call the storage area where these messages will be stored and retrieved.
 Typically, this would be based on the name of the publisher.  The extension WithFileBackingStore tells the publisher to store messages on the file system at the root
 location specified.  The account the publisher runs under must have persmissions to write and create directories under this root location to organize messages.
+
+###OK, I published something...how do I Consume it
+I'll save the details of how Burrows and RabbitMQ deliver messages to a longer blog post, but Burrows is based on the fantastic work that was put into MassTransit to 
+allow polymorphic message consumption.  The first thing to do is set up a consumer service, typically using TopShelf to help.  Having done that, you will need to configure
+the service bus on the consumer to receive messages.  Consumer setup is almost always going to be used in coordination with an IOC Container, and Burrows currently supports
+Autofac.  The below approach can be modified, but this is demonstrated using an Autofac module to register the service bus.
+
+	public class AutofacModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            base.Load(builder);
+
+			  //Register all of the consumers
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                   .Where(t => t.Implements<IConsumer>())
+                   .AsSelf();
+
+			  //Register the service bus itself
+            builder.Register(c => ServiceBusFactory.New(
+				  sbc => sbc.Configure(@"rabbitmq://localhost/SubscribeConsole",
+                subs => subs.LoadFrom(c.Resolve<ILifetimeScope>())))).SingleInstance();
+
+            //This is the same as:
+            //builder.Register(c => ServiceBusFactory.New(sbc =>
+            //{
+            //    sbc.ReceiveFrom(@"rabbitmq://localhost/SubscribeConsole");
+            //    sbc.UseRabbitMq();
+            //    sbc.UseControlBus();
+            //    sbc.Subscribe(subs => subs.LoadFrom(c.Resolve<ILifetimeScope>()));
+            //})).SingleInstance();
+        }
+    }
+
+In the preceding code, the consumers are all registered with Autofac as classes that implement IConsumer.  The second section of code sets up the service bus.
+Note that the service bus needs a queue to consume from, and in addition, it needs an action to give it a source of subscribers/consumers.  This source will
+be used to provide instances of the consumers to the service bus when handling messages. The commented section of code shows all of the more detailed calls that are wrapped
+by the Configure method.
+
+The final step in consuming is to create a Consumer.  A consumer is a basic class that inherits from the Consumes class.  All messages that are satisfied by the 
+"Consumes" type will be routed to this hander.  So in the case below, that would include all messages of the SimpleMessage type or all messages that SimpleMessage inherits 
+from or impements (interfaces and classes will work).
+ 
+	public class SubscribeConsoleConsumer : Consumes<SimpleMessage>.All
+    {
+        public void Consume(SimpleMessage message)
+        {
+            Console.WriteLine("Just got a message");
+        }
+    }
+
