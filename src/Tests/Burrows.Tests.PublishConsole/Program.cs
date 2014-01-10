@@ -3,6 +3,7 @@ using Burrows.Configuration;
 using Burrows.Log4Net;
 using Burrows.Publishing;
 using Burrows.Tests.Messages;
+using Burrows.Transports.Configuration.Extensions;
 
 namespace Burrows.Tests.PublishConsole
 {
@@ -11,7 +12,7 @@ namespace Burrows.Tests.PublishConsole
         static void Main(string[] args)
         {
             var publisher = new Publisher(
-                sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole").UseLog4Net(),
+                sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole").UseRabbitMq().UseLog4Net(),
                 ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore());
 
             //var publisher = new Publisher(

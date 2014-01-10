@@ -23,7 +23,8 @@ The easiest way to set up a publisher is with the following command:
 This command will set up the publisher to listen at the specified endpoint, but will also instruct the publisher to use a control bus.  
 It is synonymous with this command:
 
-	var publisher = new Publisher(sbc => sbc.ReceiveFrom(@"rabbitmq://localhost/PublishConsole").UseControlBus());
+	var publisher = new Publisher(sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole")
+												  .UseRabbitMq().UseLog4Net());
 
 There are many extensions available to customize bus behavior and they are all chainable.
 
@@ -42,11 +43,11 @@ but the file system is the most basic and available should a network outage occu
 
 	var publisher = new Publisher(
 				sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole"),
-              ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup"));
+              ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup"));     
 
 The second constructor parameter to the publisher enables publisher confirms to a file backing store: 
 
-	ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup")
+	ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup")    
 
 The call to UsePublisherConfirms accepts an argument which tells this publisher what to call the storage area where these messages will be stored and retrieved.
 Typically, this would be based on the name of the publisher.  The extension WithFileBackingStore tells the publisher to store messages on the file system at the root
