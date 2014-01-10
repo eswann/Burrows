@@ -48,6 +48,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.NHib", "Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows.NHib.Tests", "Persistence\Burrows.NHib.Tests\Burrows.NHib.Tests.csproj", "{48EAAC46-DC53-4ADC-AB16-BC3D32E7A478}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{91BB4AAF-89B2-4B2A-B661-FBFEBD63AA4B}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\NOTICE = ..\NOTICE
+		..\NOTICE_BURROWS = ..\NOTICE_BURROWS
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -21,9 +21,7 @@ on desired performance characteristics.
    through *publisher confirms*
  * The transport uses *basic_get* which is a polling implementation. Potentially it could be faster and nicer to use
    *basic_consume*. Have a look at `InboundRabbitMqTransport` for more details on this.
- * RabbitMQ supports AX-transactions, something that LTC and DTC supposedly is compliant with also - but both
-   `TransactionalBehaviour` implementations are empty. Specifically, adding support for two-phase-commit over the
-   network.
+
  * RabbitMQ supports AMQP-transactions, i.e. message batching on both consume and publish/send. Could this be exposed
    as receive context information?
  * It's currently hairy to get SSL/TLS started with RabbitMQ on Windows machines - can we provide guidance or

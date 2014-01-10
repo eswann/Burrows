@@ -11,8 +11,12 @@ namespace Burrows.Tests.PublishConsole
         static void Main(string[] args)
         {
             var publisher = new Publisher(
-                sbc => sbc.ReceiveFrom(@"rabbitmq://localhost/PublishConsole").UseControlBus().UseLog4Net(),
+                sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole").UseLog4Net(),
                 ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore());
+
+            //var publisher = new Publisher(
+            //    sbc => sbc.ReceiveFrom(@"rabbitmq://localhost/PublishConsole").UseControlBus().UseLog4Net(),
+            //    ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore());
 
             Console.WriteLine("To publish a message, type a message count and hit enter");
             Console.WriteLine();
