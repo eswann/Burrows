@@ -42,8 +42,8 @@ but the file system is the most basic and available should a network outage occu
 ####Set up publisher Confirms:
 
 	var publisher = new Publisher(
-				sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole"),
-              ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup"));     
+		sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole"),
+       ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup"));     
 
 The second constructor parameter to the publisher enables publisher confirms to a file backing store: 
 
