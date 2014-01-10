@@ -10,7 +10,7 @@
         <iconUrl>http://upload.wikimedia.org/wikipedia/commons/4/49/William_S._Burroughs_at_the_Gotham_Book_Mart.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <summary>Burrows is a RabbitMQ messaging framework for .NET based on MassTransit: http://masstransit-project.com.</summary>
+        <summary>Burrows is a RabbitMQ messaging framework for .NET forked from MassTransit.</summary>
         <copyright>Copyright 2014 Eric Swann, et. al. - All rights reserved.</copyright>
         <language />
         <tags>Burrows RabbitMQ Rabbit ServiceBus</tags>
