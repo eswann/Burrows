@@ -343,8 +343,13 @@ namespace Burrows.Publishing
                     _confirmer.PublicationFailed -= OnPublicationFailed;
                     _confirmer.PublicationSucceeded -= OnPublicationSucceeded;
                 }
-                _disposed = true;
+                
+                if (_serviceBus != null)
+                {
+                    _serviceBus.Dispose();
+                }
 
+                _disposed = true;
                 GC.SuppressFinalize(this);
             }
         }
