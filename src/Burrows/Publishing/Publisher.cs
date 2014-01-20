@@ -24,7 +24,7 @@ using Burrows.Publishing.BackingStores;
 
 namespace Burrows.Publishing
 {
-    public class Publisher : IDisposable, IPublisher
+    public class Publisher : IPublisher
     {
         private static readonly ILog _log = Logger.Get<Publisher>();
 
