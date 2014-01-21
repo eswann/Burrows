@@ -99,6 +99,12 @@ namespace Burrows.Publishing
             RepublishStoredMessages().Wait();
         }
 
+
+        public IServiceBus ServiceBus
+        {
+            get { return _serviceBus; }
+        }
+
         /// <summary>
         /// Performs message publication.
         /// </summary>

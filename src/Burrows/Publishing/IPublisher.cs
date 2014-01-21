@@ -18,5 +18,7 @@ namespace Burrows.Publishing
     public interface IPublisher : IDisposable
     {
         void Publish<T>(T message);
+
+        IServiceBus ServiceBus { get; }
     }
 }
