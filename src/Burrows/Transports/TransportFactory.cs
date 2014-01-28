@@ -124,7 +124,7 @@ namespace Burrows.Transports
 
             IConnectionHandler<TransportConnection> connectionHandler = GetConnection(_outboundConnections, address);
 
-            return new OutboundTransport(address, _publisherConfirmSettings, connectionHandler);
+            return new OutboundTransport(address, _publisherConfirmSettings, connectionHandler, false);
         }
 
         public IOutboundTransport BuildError(ITransportSettings settings)
@@ -138,7 +138,7 @@ namespace Burrows.Transports
 
             IConnectionHandler<TransportConnection> connection = GetConnection(_outboundConnections, address);
 
-            return new OutboundTransport(address, _publisherConfirmSettings, connection);
+            return new OutboundTransport(address, _publisherConfirmSettings, connection, true);
         }
 
         public IMessageNameFormatter MessageNameFormatter

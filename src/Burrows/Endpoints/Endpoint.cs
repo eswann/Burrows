@@ -217,7 +217,9 @@ namespace Burrows.Endpoints
             {
                 Exception failedMessageException = null;
 
-                _transport.Receive(acceptContext =>
+                _transport.Receive(
+                    
+                    acceptContext =>
                     {
                         failedMessageException = null;
 
@@ -291,30 +293,25 @@ namespace Burrows.Endpoints
                         }
 
                         return receiveContext =>
+                        {
+                            string receiveMessageId = receiveContext.OriginalMessageId ?? receiveContext.MessageId;
+                            try
                             {
-                                string receiveMessageId = receiveContext.OriginalMessageId ?? receiveContext.MessageId;
-                                try
-                                {
-                                    receive(receiveContext);
+                                receive(receiveContext);
 
-                                    successfulMessageId = receiveMessageId;
-                                }
-                                catch (Exception ex)
-                                {
-                                    if (_log.IsErrorEnabled)
-                                        _log.Error("An exception was thrown by a message consumer", ex);
+                                successfulMessageId = receiveMessageId;
+                            }
+                            catch (Exception ex)
+                            {
+                                if (_log.IsErrorEnabled)
+                                    _log.Error("An exception was thrown by a message consumer", ex);
 
-                                    faultActions = receiveContext.GetFaultActions();
-                                    if(_tracker.IncrementRetryCount(receiveMessageId, ex, faultActions))
-                                    {
-                                        // seems like this might be unnecessary if we are going to reprocess the message
-                                        receiveContext.ExecuteFaultActions(faultActions);
-                                    }
-                                    SaveMessageToInboundTransport(receiveContext);
-                                    
-                                    throw;
-                                }
-                            };
+                                faultActions = receiveContext.GetFaultActions();
+                                _tracker.IncrementRetryCount(receiveMessageId, ex, faultActions);
+
+                                throw;
+                            }
+                        };
                     }, timeout);
 
                 if (failedMessageException != null)

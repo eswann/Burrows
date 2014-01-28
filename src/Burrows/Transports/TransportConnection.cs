@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System.Collections.Generic;
 using Burrows.Transports.Rabbit;
 
 namespace Burrows.Transports
@@ -63,5 +64,17 @@ namespace Burrows.Transports
             _connection.Cleanup(200, "Disconnect");
             _connection = null;
         }
+
+        public void DeclareExchange(IModel channel, string name, bool durable, bool autoDelete)
+        {
+            channel.ExchangeDeclare(name, ExchangeType.Fanout, durable, autoDelete, null);
+        }
+
+        public void BindQueue(IModel channel, string name, bool durable, bool exclusive, bool autoDelete, IDictionary<string, object> queueArguments)
+        {
+            string queue = channel.QueueDeclare(name, durable, exclusive, autoDelete, queueArguments);
+            channel.QueueBind(queue, name, "");
+        }
+
     }
 }

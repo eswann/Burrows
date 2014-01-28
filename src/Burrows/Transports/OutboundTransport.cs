@@ -29,17 +29,19 @@ namespace Burrows.Transports
     public class OutboundTransport : IOutboundTransport
     {
         private readonly IRabbitEndpointAddress _address;
+        readonly bool _bindToQueue;
         private readonly PublisherConfirmSettings _publisherConfirmSettings;
         private readonly IConnectionHandler<TransportConnection> _connectionHandler;
         ProducerBinding _producer;
 
         public OutboundTransport(IRabbitEndpointAddress address,
             PublisherConfirmSettings publisherConfirmSettings,
-            IConnectionHandler<TransportConnection> connectionHandler)
+            IConnectionHandler<TransportConnection> connectionHandler, bool bindToQueue)
         {
             _address = address;
             _publisherConfirmSettings = publisherConfirmSettings;
             _connectionHandler = connectionHandler;
+            _bindToQueue = bindToQueue;
         }
 
         public IEndpointAddress Address
@@ -105,7 +107,7 @@ namespace Burrows.Transports
             if (_producer != null)
                 return;
 
-            _producer = new ProducerBinding(_address, _publisherConfirmSettings);
+            _producer = new ProducerBinding(_address, _bindToQueue, _publisherConfirmSettings);
 
             _connectionHandler.AddBinding(_producer);
         }

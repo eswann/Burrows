@@ -98,12 +98,9 @@ namespace Burrows.Threading
 
 			var completed = new AutoResetEvent(true);
 
-			using (_eventChannel.Connect(x =>
-				{
-					x.AddConsumerOf<ConsumeCompleted>()
-						.UsingConsumer(message => completed.Set())
-						.HandleOnCallingThread();
-				}))
+			using (_eventChannel.Connect(x => x.AddConsumerOf<ConsumeCompleted>()
+			    .UsingConsumer(message => completed.Set())
+			    .HandleOnCallingThread()))
 			{
 				while (completed.WaitOne(_bus.ShutdownTimeout, true))
 				{

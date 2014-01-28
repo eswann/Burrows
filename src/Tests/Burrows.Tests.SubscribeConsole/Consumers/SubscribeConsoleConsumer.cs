@@ -8,6 +8,8 @@ namespace Burrows.Tests.SubscribeConsole.Consumers
         public void Consume(SimpleMessage message)
         {
             Console.WriteLine("Just got a message");
+
+           throw new Exception("I failed!!!!!");
         }
     }
 }

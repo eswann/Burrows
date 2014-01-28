@@ -28,7 +28,8 @@ namespace Burrows.Transports.Bindings
     public class ProducerBinding : IConnectionBinding
     {
         private static readonly ILog _log = Logger.Get<ProducerBinding>();
-        private readonly IEndpointAddress _address;
+        private readonly IRabbitEndpointAddress _address;
+        private readonly bool _bindToQueue;
         private readonly PublisherConfirmSettings _publisherConfirmSettings;
         private readonly object _lock = new object();
         private int _testNackCount;
@@ -37,14 +38,26 @@ namespace Burrows.Transports.Bindings
             
         IModel _channel;
 
-        public ProducerBinding(IEndpointAddress address, PublisherConfirmSettings publisherConfirmSettings)
+        public ProducerBinding(IRabbitEndpointAddress address, bool bindToQueue, PublisherConfirmSettings publisherConfirmSettings)
         {
             _address = address;
+            _bindToQueue = bindToQueue;
             _publisherConfirmSettings = publisherConfirmSettings;
 
             if (_publisherConfirmSettings.UsePublisherConfirms)
             {
                 _confirms = new ConcurrentDictionary<ulong, string>();
+            }
+        }
+
+        void DeclareAndBindQueue(TransportConnection connection, IModel channel)
+        {
+            if (_bindToQueue)
+            {
+                connection.DeclareExchange(channel, _address.Name, _address.Durable, _address.AutoDelete);
+
+                connection.BindQueue(channel, _address.Name, _address.Durable, _address.Exclusive, _address.AutoDelete,
+                    _address.QueueArguments());
             }
         }
 
@@ -56,6 +69,8 @@ namespace Burrows.Transports.Bindings
                 try
                 {
                     channel = connection.Connection.CreateModel();
+
+                    DeclareAndBindQueue(connection, channel);
 
                     BindEvents(channel);
 
@@ -150,8 +165,11 @@ namespace Burrows.Transports.Bindings
 
                 if (_publisherConfirmSettings.UsePublisherConfirms)
                 {
-                    _confirms.TryAdd(_channel.NextPublishSeqNo,
-                                        (string) properties.Headers[PublisherConfirmSettings.ClientMessageId]);
+                    object clientMessageId;
+                    if (properties.Headers.TryGetValue(PublisherConfirmSettings.ClientMessageId, out clientMessageId))
+                    {
+                        _confirms.TryAdd(_channel.NextPublishSeqNo, (string)clientMessageId);
+                    }
                 }
 
                 _channel.BasicPublish(exchangeName, "", properties, body);
