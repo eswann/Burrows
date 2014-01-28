@@ -26,106 +26,106 @@ namespace Burrows.Tests.TextFixtures
     using NUnit.Framework;
 
     [TestFixture]
-	public abstract class EndpointTestFixture<TTransportFactory>
-		where TTransportFactory : class, ITransportFactory, new()
-	{
-		[SetUp]
-		public void Setup()
-		{
-			if (_endpointFactoryConfigurator != null)
-			{
-				IConfigurationResult result = ConfigurationResult.CompileResults(_endpointFactoryConfigurator.Validate());
+    public abstract class EndpointTestFixture<TTransportFactory>
+        where TTransportFactory : class, ITransportFactory, new()
+    {
+        [SetUp]
+        public void Setup()
+        {
+            if (_endpointFactoryConfigurator != null)
+            {
+                IConfigurationResult result = ConfigurationResult.CompileResults(_endpointFactoryConfigurator.Validate());
 
-				try
-				{
-					EndpointFactory = _endpointFactoryConfigurator.CreateEndpointFactory();
-				//	_endpointFactoryConfigurator = null;
+                try
+                {
+                    EndpointFactory = _endpointFactoryConfigurator.CreateEndpointFactory();
+                    //	_endpointFactoryConfigurator = null;
 
-					_endpointCache = new EndpointCache(EndpointFactory);
+                    _endpointCache = new EndpointCache(EndpointFactory);
 
-					EndpointCache = new EndpointCacheProxy(_endpointCache);
-				}
-				catch (Exception ex)
-				{
-					throw new ConfigurationException(result, "An exception was thrown during endpoint cache creation", ex);
-				}
-			}
+                    EndpointCache = new EndpointCacheProxy(_endpointCache);
+                }
+                catch (Exception ex)
+                {
+                    throw new ConfigurationException(result, "An exception was thrown during endpoint cache creation", ex);
+                }
+            }
 
-			ServiceBusFactory.ConfigureDefaultSettings(x =>
-				{
-					x.SetEndpointCache(EndpointCache);
-					x.SetConcurrentConsumerLimit(4);
-					x.SetReceiveTimeout(50.Milliseconds());
-					x.EnableAutoStart();
-				    x.DisablePerformanceCounters();
-				});
+            ServiceBusFactory.ConfigureDefaultSettings(x =>
+            {
+                x.SetEndpointCache(EndpointCache);
+                x.SetConcurrentConsumerLimit(4);
+                x.SetReceiveTimeout(50.Milliseconds());
+                x.EnableAutoStart();
+                x.DisablePerformanceCounters();
+            });
 
-			EstablishContext();
-		}
+            EstablishContext();
+        }
 
-		[TearDown]
-		public void Teardown()
-		{
-			TeardownContext();
+        [TearDown]
+        public void Teardown()
+        {
+            TeardownContext();
 
-			_endpointCache.Clear();
-		}
+            _endpointCache.Clear();
+        }
 
-		[TestFixtureTearDown]
-		public void FixtureTeardown()
-		{
-			if (EndpointCache != null)
-			{
-				EndpointCache.Dispose();
-				EndpointCache = null;
-			}
+        [TestFixtureTearDown]
+        public void FixtureTeardown()
+        {
+            if (EndpointCache != null)
+            {
+                EndpointCache.Dispose();
+                EndpointCache = null;
+            }
 
-			ServiceBusFactory.ConfigureDefaultSettings(x => { x.SetEndpointCache(null); });
-		}
+            ServiceBusFactory.ConfigureDefaultSettings(x => { x.SetEndpointCache(null); });
+        }
 
-	    readonly EndpointFactoryConfigurator _endpointFactoryConfigurator;
-		EndpointCache _endpointCache;
+        EndpointFactoryConfigurator _endpointFactoryConfigurator;
+        EndpointCache _endpointCache;
 
-		protected EndpointTestFixture()
-		{
-			var defaultSettings = new EndpointFactoryDefaultSettings();
+        protected EndpointTestFixture()
+        {
+            var defaultSettings = new EndpointFactoryDefaultSettings();
 
-			_endpointFactoryConfigurator = new EndpointFactoryConfigurator(defaultSettings);
-			_endpointFactoryConfigurator.AddTransportFactory<TTransportFactory>();
-			_endpointFactoryConfigurator.SetPurgeOnStartup(true);
-		}
+            _endpointFactoryConfigurator = new EndpointFactoryConfigurator(defaultSettings);
+            _endpointFactoryConfigurator.AddTransportFactory<TTransportFactory>();
+            _endpointFactoryConfigurator.SetPurgeOnStartup(true);
+        }
 
-		protected void AddTransport<T>()
-			where T : class, ITransportFactory, new()
-		{
-			_endpointFactoryConfigurator.AddTransportFactory<T>();
-		}
+        protected void AddTransport<T>()
+            where T : class, ITransportFactory, new()
+        {
+            _endpointFactoryConfigurator.AddTransportFactory<T>();
+        }
 
-		protected IEndpointFactory EndpointFactory { get; private set; }
-		protected IEndpointCache EndpointCache { get; set; }
+        protected IEndpointFactory EndpointFactory { get; private set; }
+        protected IEndpointCache EndpointCache { get; set; }
 
-		protected virtual void EstablishContext()
-		{
-		}
+        protected virtual void EstablishContext()
+        {
+        }
 
-		protected virtual void TeardownContext()
-		{
-		}
+        protected virtual void TeardownContext()
+        {
+        }
 
-		protected void ConfigureEndpointFactory(Action<IEndpointFactoryConfigurator> configure)
-		{
-			if (_endpointFactoryConfigurator == null)
-				throw new ConfigurationException("The endpoint factory configurator has already been executed.");
+        protected void ConfigureEndpointFactory(Action<IEndpointFactoryConfigurator> configure)
+        {
+            if (_endpointFactoryConfigurator == null)
+                throw new ConfigurationException("The endpoint factory configurator has already been executed.");
 
-			configure(_endpointFactoryConfigurator);
-		}
+            configure(_endpointFactoryConfigurator);
+        }
 
-		protected static InMemorySagaRepository<TSaga> SetupSagaRepository<TSaga>()
-			where TSaga : class, ISaga
-		{
-			var sagaRepository = new InMemorySagaRepository<TSaga>();
+        protected static InMemorySagaRepository<TSaga> SetupSagaRepository<TSaga>()
+            where TSaga : class, ISaga
+        {
+            var sagaRepository = new InMemorySagaRepository<TSaga>();
 
-			return sagaRepository;
-		}
-	}
+            return sagaRepository;
+        }
+    }
 }

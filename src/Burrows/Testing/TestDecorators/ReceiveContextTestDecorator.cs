@@ -299,6 +299,11 @@ namespace Burrows.Testing.TestDecorators
             get { return _context.Id; }
         }
 
+        public bool IsTransactional
+        {
+            get { return _context.IsTransactional; }
+        }
+
         public string OriginalMessageId
         {
             get { return _context.OriginalMessageId; }

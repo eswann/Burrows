@@ -22,7 +22,7 @@ namespace Burrows.Tests.TextFixtures
     using Burrows.Transports;
     using NUnit.Framework;
 
-    [TestFixture, Ignore]
+    [Ignore]
 	public class SubscriptionServiceTestFixture<TTransportFactory> :
 		EndpointTestFixture<TTransportFactory>
 		where TTransportFactory : class, ITransportFactory, new()

@@ -24,20 +24,19 @@ namespace Burrows.Context
     using Serialization;
     using Util;
 
-    public class ReceiveContext :
-        MessageContext,
-        IReceiveContext
+    public class ReceiveContext : MessageContext, IReceiveContext
     {
         private static readonly ILog _log = Logger.Get(typeof(ReceiveContext));
         private readonly IList<IPublished> _published;
         private readonly IList<IReceived> _received;
         private readonly IList<ISent> _sent;
-        Stream _bodyStream;
-        readonly Stopwatch _timer;
-        IMessageTypeConverter _typeConverter;
+        private Stream _bodyStream;
+        private readonly Stopwatch _timer;
+        private IMessageTypeConverter _typeConverter;
         private readonly IList<Action> _faultActions;
+        private readonly bool _transactional;
 
-        ReceiveContext()
+        private ReceiveContext()
         {
             Id = NewIds.NewId.NextGuid();
             
@@ -48,10 +47,11 @@ namespace Burrows.Context
             _received = new List<IReceived>();
         }
 
-        ReceiveContext(Stream bodyStream)
+        private ReceiveContext(Stream bodyStream, bool transactional)
             : this()
         {
             _bodyStream = bodyStream;
+            _transactional = transactional;
         }
 
         /// <summary>
@@ -150,6 +150,11 @@ namespace Burrows.Context
 
         public Guid Id { get; private set; }
 
+        public bool IsTransactional
+        {
+            get { return _transactional; }
+        }
+
         public void ExecuteFaultActions(IEnumerable<Action> faultActions)
         {
             try
@@ -226,17 +231,19 @@ namespace Burrows.Context
             }
         }
 
+
         /// <summary>
         /// Create a new <see cref="ReceiveContext"/> from the incoming 
         /// stream; the stream should contain the Burrows <see cref="Envelope"/>
         /// which in turn contains both payload and meta-data/out-of-band data.
         /// </summary>
         /// <param name="bodyStream">Body stream to create receive context from</param>
+        /// <param name="transactional">True if the transport is transactional and will roll back failed messages </param>
         /// <returns>The receive context</returns>
         [NotNull]
-        public static ReceiveContext FromBodyStream(Stream bodyStream)
+        public static ReceiveContext FromBodyStream(Stream bodyStream, bool transactional = false)
         {
-            return new ReceiveContext(bodyStream);
+            return new ReceiveContext(bodyStream, transactional);
         }
 
         /// <summary>
@@ -246,7 +253,7 @@ namespace Burrows.Context
         [NotNull]
         public static ReceiveContext Empty()
         {
-            return new ReceiveContext(null);
+            return new ReceiveContext(null, false);
         }
     }
 }

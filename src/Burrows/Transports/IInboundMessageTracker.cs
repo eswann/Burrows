@@ -23,6 +23,12 @@ namespace Burrows.Transports
     /// </summary>
     public interface IInboundMessageTracker
     {
+
+        /// <summary>
+        /// Returns true if retries are allowed
+        /// </summary>
+        bool IsRetryEnabled { get; }
+
         /// <summary>
         /// Check if the message retry limit has been exceeded for the id specified.
         /// </summary>

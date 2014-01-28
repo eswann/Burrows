@@ -30,6 +30,11 @@ namespace Burrows.Transports
             _messages = new ConcurrentCache<string, TrackedMessage>(id => new TrackedMessage());
         }
 
+        public bool IsRetryEnabled
+        {
+            get { return _retryLimit > 0; }
+        }
+
         public virtual bool IsRetryLimitExceeded(string id, out Exception retryException, out IEnumerable<Action> faultActions)
         {
             bool exceeded = false;

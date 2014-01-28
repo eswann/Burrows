@@ -40,6 +40,11 @@ namespace Burrows.Context
         string OriginalMessageId { get; }
 
         /// <summary>
+        /// True if the transport is transactional and will leave the message on the queue if an exception is thrown
+        /// </summary>
+        bool IsTransactional { get; }
+
+        /// <summary>
         /// Set the content type that was indicated by the transport message header
         /// </summary>
         /// <param name="value"></param>

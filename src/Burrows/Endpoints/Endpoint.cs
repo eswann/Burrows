@@ -285,9 +285,13 @@ namespace Burrows.Endpoints
                             if (_log.IsErrorEnabled)
                                 _log.Error("An exception was thrown preparing the message consumers", ex);
 
-                            if(_tracker.IncrementRetryCount(acceptMessageId, ex))
+                            if (_tracker.IncrementRetryCount(acceptMessageId, ex))
                             {
-                                acceptContext.ExecuteFaultActions(acceptContext.GetFaultActions());
+                                if (!_tracker.IsRetryEnabled)
+                                {
+                                    acceptContext.ExecuteFaultActions(acceptContext.GetFaultActions());
+                                    return MoveMessageToErrorTransport;
+                                }
                             }
                             return null;
                         }
@@ -307,7 +311,22 @@ namespace Burrows.Endpoints
                                     _log.Error("An exception was thrown by a message consumer", ex);
 
                                 faultActions = receiveContext.GetFaultActions();
-                                _tracker.IncrementRetryCount(receiveMessageId, ex, faultActions);
+                                if (_tracker.IncrementRetryCount(receiveMessageId, ex, faultActions))
+                                {
+                                    if (!_tracker.IsRetryEnabled)
+                                    {
+                                        receiveContext.ExecuteFaultActions(faultActions);
+                                        MoveMessageToErrorTransport(receiveContext);
+
+                                        return;
+                                    }
+                                }
+
+                                if (!receiveContext.IsTransactional)
+                                {
+                                    SaveMessageToInboundTransport(receiveContext);
+                                    return;
+                                }
 
                                 throw;
                             }
@@ -381,5 +400,6 @@ namespace Burrows.Endpoints
 
             Address.LogReQueued(_transport.Address, context.MessageId, "");
         }
+
     }
 }

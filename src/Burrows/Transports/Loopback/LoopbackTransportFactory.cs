@@ -12,17 +12,18 @@
 // specific language governing permissions and limitations under the License.
 
 using Burrows.Endpoints;
+using System;
+using Magnum.Caching;
 
 namespace Burrows.Transports.Loopback
 {
-    using System;
-    using Magnum.Caching;
+
 
     public class LoopbackTransportFactory :
         ITransportFactory
     {
-        private readonly Cache<Uri, LoopbackTransport> _transports;
-        private readonly IMessageNameFormatter _messageNameFormatter;
+        readonly Cache<Uri, LoopbackTransport> _transports;
+        readonly IMessageNameFormatter _messageNameFormatter;
 
         public LoopbackTransportFactory()
         {

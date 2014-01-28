@@ -57,7 +57,7 @@ namespace Burrows.Tests
 
 		    LocalBus.Publish(new Hello(), x => x.SendFaultTo(LocalBus));
 
-			consumer.Fault.IsAvailable(300.Seconds()).ShouldBeTrue();
+			consumer.Fault.IsAvailable(30.Seconds()).ShouldBeTrue();
 		}
 	}
 
