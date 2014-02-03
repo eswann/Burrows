@@ -3,13 +3,13 @@ using Burrows.Tests.Messages;
 
 namespace Burrows.Tests.SubscribeConsole.Consumers
 {
-    public class SubscribeConsoleConsumer : Consumes<SimpleMessage>.All
+    public class SubscribeConsoleConsumer : Consumes<PublishFromConsumerMessage>.All
     {
-        public void Consume(SimpleMessage message)
+        public void Consume(PublishFromConsumerMessage message)
         {
-            Console.WriteLine("Just got a message");
+            Console.WriteLine("Just got a Publish From Consumer message");
 
-           throw new Exception("I failed!!!!!");
+           //throw new Exception("I failed!!!!!");
         }
     }
 }
