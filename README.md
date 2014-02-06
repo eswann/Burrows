@@ -1,6 +1,3 @@
-FYI: I haven't been able to upload to Nuget in a few days...have been pushing to MyGet instead: 
-https://www.myget.org/gallery/burrows
-
 #Burrows
 
 Burrows is a .Net service bus based on the popular MassTransit service bus.
