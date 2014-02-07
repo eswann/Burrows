@@ -148,6 +148,7 @@
     <Compile Include="Publishing\PublishSettings.cs" />
     <Compile Include="Publishing\BackingStores\UnconfirmedMessageFileRepository.cs" />
     <Compile Include="Publishing\BackingStores\UnconfirmedMessageRepositoryFactory.cs" />
+    <Compile Include="RabbitUtils\QueuePurge.cs" />
     <Compile Include="Serialization\NonClosingStream.cs" />
     <Compile Include="Serialization\IMessageSerializer.cs" />
     <Compile Include="Configuration\Configuration\InterceptingConsumerFactory.cs" />
@@ -656,7 +657,6 @@
     <Compile Include="Util\IndexedSagaProperty.cs" />
     <Compile Include="Util\LambdaEqualityComparer.cs" />
     <Compile Include="Util\ObjectExtensions.cs" />
-    <Compile Include="Util\ReSharperStaticAnalysis.cs" />
     <Compile Include="Util\UriExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
