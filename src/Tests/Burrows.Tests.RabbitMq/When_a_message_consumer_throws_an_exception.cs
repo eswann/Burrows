@@ -12,6 +12,7 @@
 // specific language governing permissions and limitations under the License.
 
 using System;
+using System.Diagnostics;
 using Burrows.Configuration;
 using Burrows.Configuration.BusConfigurators;
 using Burrows.Tests.Framework;
@@ -24,51 +25,68 @@ namespace Burrows.Tests.RabbitMq
     public class When_a_message_consumer_throws_an_exception :
         Given_a_rabbitmq_bus
     {
+        public When_a_message_consumer_throws_an_exception()
+        {
+            ConfigureEndpointFactory(x => x.SetDefaultRetryLimit(0));
+        }
+
         Future<A> _received;
         A _message;
+        Future<Fault<A>> _faultReceived;
 
         protected override void ConfigureServiceBus(Uri uri, IServiceBusConfigurator configurator)
         {
             base.ConfigureServiceBus(uri, configurator);
 
             _received = new Future<A>();
+            _faultReceived = new Future<Fault<A>>();
 
             configurator.Subscribe(s =>
+            {
+                s.Handler<A>(message =>
                 {
-                    s.Handler<A>(message =>
-                        {
-                            _received.Complete(message);
+                    _received.Complete(message);
 
-                            throw new NullReferenceException("This is supposed to happen, cause this handler is naughty.");
-                        });
+                    throw new NullReferenceException(
+                        "This is supposed to happen, cause this handler is naughty.");
                 });
+
+                s.Handler<Fault<A, Guid>>(message => { _faultReceived.Complete(message); });
+            });
         }
 
         [When]
         public void A_message_is_published()
         {
             _message = new A
-                {
-                    StringA = "ValueA",
-                };
-            
+            {
+                StringA = "ValueA",
+            };
+
             LocalBus.Publish(_message);
         }
 
         [Then]
         public void Should_be_received_by_the_handler()
         {
-            _received.WaitUntilCompleted(8.Seconds()).ShouldBeTrue();
+            _received.WaitUntilCompleted(Debugger.IsAttached ? 5.Minutes() : 8.Seconds()).ShouldBeTrue();
             _received.Value.StringA.ShouldEqual("ValueA");
+        }
+
+        [Then]
+        public void Should_receive_the_fault()
+        {
+            _faultReceived.WaitUntilCompleted(Debugger.IsAttached ? 5.Minutes() : 8.Seconds()).ShouldBeTrue();
+            _faultReceived.Value.FailedMessage.StringA.ShouldEqual("ValueA");
         }
 
         [Then]
         public void Should_have_a_copy_of_the_error_in_the_error_queue()
         {
-            _received.WaitUntilCompleted(8.Seconds());
-
-            LocalBus.GetEndpoint(LocalErrorUri).ShouldContain(_message, 8.Seconds());
+            _received.WaitUntilCompleted(Debugger.IsAttached ? 5.Minutes() : 8.Seconds());
+            LocalBus.GetEndpoint(LocalErrorUri).ShouldContain(_message, Debugger.IsAttached ? 5.Minutes() : 8.Seconds());
         }
+
 
         class A :
             ICorrelatedBy<Guid>

@@ -11,24 +11,23 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Burrows.Context;
 using Burrows.Endpoints;
+using Burrows.Logging;
 using Burrows.Transports.Bindings;
+using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 
-namespace Burrows.Transports
+namespace Burrows.Transports.Rabbit
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using Context;
-    using Logging;
-    using RabbitMQ.Client.Events;
-    using RabbitMQ.Client.Exceptions;
-
-    public class InboundTransport : IInboundTransport
+    public class InboundRabbitTransport : IInboundTransport
     {
-        private static readonly ILog _log = Logger.Get(typeof(InboundTransport));
+        private static readonly ILog _log = Logger.Get(typeof(InboundRabbitTransport));
 
         private readonly IRabbitEndpointAddress _address;
         private readonly IConnectionHandler<TransportConnection> _connectionHandler;
@@ -38,7 +37,7 @@ namespace Burrows.Transports
         bool _disposed;
         PublisherBinding _publisher;
 
-        public InboundTransport(IRabbitEndpointAddress address,
+        public InboundRabbitTransport(IRabbitEndpointAddress address,
             IConnectionHandler<TransportConnection> connectionHandler,
             bool purgeExistingMessages,
             IMessageNameFormatter messageNameFormatter)
@@ -131,49 +130,52 @@ namespace Burrows.Transports
             Dispose(true);
         }
 
+
         public IEnumerable<Type> BindExchangesForPublisher(Type messageType, IMessageNameFormatter messageNameFormatter)
         {
             AddPublisherBinding();
 
             IList<Type> messageTypes = new List<Type>();
             _connectionHandler.Use(connection =>
+            {
+                MessageName messageName = messageNameFormatter.GetMessageName(messageType);
+
+                bool temporary = IsTemporaryMessageType(messageType);
+
+                _publisher.ExchangeDeclare(messageName.ToString(), temporary);
+
+                messageTypes.Add(messageType);
+
+                foreach (Type type in messageType.GetMessageTypes().Skip(1))
                 {
-                    MessageName messageName = messageNameFormatter.GetMessageName(messageType);
+                    MessageName interfaceName = messageNameFormatter.GetMessageName(type);
 
-                    bool temporary = !messageType.IsPublic;
+                    bool isTemporary = IsTemporaryMessageType(type);
 
-                    _publisher.ExchangeDeclare(messageName.ToString(), temporary);
-
-                    messageTypes.Add(messageType);
-
-                    foreach (Type type in messageType.GetMessageTypes().Skip(1))
-                    {
-                        MessageName interfaceName = messageNameFormatter.GetMessageName(type);
-
-                        _publisher.ExchangeBind(interfaceName.ToString(), messageName.ToString());
-                        messageTypes.Add(type);
-                    }
-                });
+                    _publisher.ExchangeBind(interfaceName.ToString(), messageName.ToString(), isTemporary, temporary);
+                    messageTypes.Add(type);
+                }
+            });
 
             return messageTypes;
         }
 
-        public void BindSubscriberExchange(IRabbitEndpointAddress address, string exchangeName)
+        static bool IsTemporaryMessageType(Type messageType)
+        {
+            return (!messageType.IsPublic && messageType.IsClass)
+                   || (messageType.IsGenericType && messageType.GetGenericArguments().Any(IsTemporaryMessageType));
+        }
+
+        public void BindSubscriberExchange(IRabbitEndpointAddress address, string exchangeName, bool temporary)
         {
             AddPublisherBinding();
-            _connectionHandler.Use(connection =>
-                {
-                    _publisher.ExchangeBind(address.Name, exchangeName);
-                });
+            _connectionHandler.Use(connection => _publisher.ExchangeBind(address.Name, exchangeName, false, temporary));
         }
 
         public void UnbindSubscriberExchange(string exchangeName)
         {
             AddPublisherBinding();
-            _connectionHandler.Use(connection =>
-            {
-                _publisher.ExchangeUnbind(_address.Name, exchangeName);
-            });            
+            _connectionHandler.Use(connection => _publisher.ExchangeUnbind(_address.Name, exchangeName));
         }
 
         void AddConsumerBinding()

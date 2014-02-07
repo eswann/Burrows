@@ -11,32 +11,32 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Burrows.Endpoints;
+using Burrows.Exceptions;
+using Burrows.Logging;
+using Burrows.Subscriptions.Coordinator;
+using Burrows.Subscriptions.Messages;
+using Magnum;
+using Magnum.Extensions;
 
-namespace Burrows.Transports
+namespace Burrows.Transports.Rabbit
 {
-    using System;
-    using System.Collections.Generic;
-    using Exceptions;
-    using Logging;
-    using Magnum;
-    using Magnum.Extensions;
-    using Subscriptions.Coordinator;
-    using Subscriptions.Messages;
-
-    public class SubscriptionBinder : ISubscriptionObserver
+    public class RabbitSubscriptionBinder : ISubscriptionObserver
     {
-        private static readonly ILog _log = Logger.Get(typeof (SubscriptionBinder));
+        private static readonly ILog _log = Logger.Get(typeof (RabbitSubscriptionBinder));
         private readonly Dictionary<Guid, MessageName> _bindings;
-        private readonly InboundTransport _inboundTransport;
+        private readonly InboundRabbitTransport _inboundTransport;
         private readonly IEndpointAddress _inputAddress;
         private readonly IMessageNameFormatter _messageNameFormatter;
 
-        public SubscriptionBinder(IServiceBus bus)
+        public RabbitSubscriptionBinder(IServiceBus bus)
         {
             _bindings = new Dictionary<Guid, MessageName>();
 
-            _inboundTransport = bus.Endpoint.InboundTransport as InboundTransport;
+            _inboundTransport = bus.Endpoint.InboundTransport as InboundRabbitTransport;
             if (_inboundTransport == null)
                 throw new ConfigurationException(
                     "The bus must be receiving from a RabbitMQ endpoint for this interceptor to work");
@@ -59,7 +59,8 @@ namespace Burrows.Transports
 
             MessageName messageName = _messageNameFormatter.GetMessageName(messageType);
 
-            _inboundTransport.BindSubscriberExchange(RabbitEndpointAddress.Parse(message.EndpointUri), messageName.ToString());
+            _inboundTransport.BindSubscriberExchange(RabbitEndpointAddress.Parse(message.EndpointUri),
+                messageName.ToString(), IsTemporaryMessageType(messageType));
 
             _bindings[message.SubscriptionId] = messageName;
         }
@@ -79,6 +80,13 @@ namespace Burrows.Transports
 
         public void OnComplete()
         {
+        }
+
+        static bool IsTemporaryMessageType(Type messageType)
+        {
+            return (!messageType.IsPublic && messageType.IsClass)
+                   || (messageType.IsGenericType
+                       && messageType.GetGenericArguments().Any(IsTemporaryMessageType));
         }
     }
 }

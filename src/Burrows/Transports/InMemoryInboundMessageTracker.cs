@@ -17,8 +17,7 @@ namespace Burrows.Transports
     using System.Linq;
     using Magnum.Caching;
 
-    public class InMemoryInboundMessageTracker :
-        IInboundMessageTracker
+    public class InMemoryInboundMessageTracker : IInboundMessageTracker
     {
         private readonly Cache<string, TrackedMessage> _messages;
         private readonly int _retryLimit;

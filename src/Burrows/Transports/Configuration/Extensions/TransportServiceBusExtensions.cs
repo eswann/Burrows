@@ -16,6 +16,7 @@ using Burrows.Configuration.BusConfigurators;
 using Burrows.Configuration.EndpointConfigurators;
 using Burrows.Endpoints;
 using Burrows.Pipeline;
+using Burrows.Transports.Rabbit;
 
 namespace Burrows.Transports.Configuration.Extensions
 {
@@ -51,7 +52,7 @@ namespace Burrows.Transports.Configuration.Extensions
         /// <returns>The IEndpoint instance, resolved from the service bus</returns>
         public static IEndpoint GetEndpoint(this IServiceBus bus, Type messageType)
         {
-            var inboundTransport = bus.Endpoint.InboundTransport as InboundTransport;
+            var inboundTransport = bus.Endpoint.InboundTransport as InboundRabbitTransport;
             if (inboundTransport == null)
             {
                 throw new ArgumentException(
@@ -119,7 +120,7 @@ namespace Burrows.Transports.Configuration.Extensions
         public static IServiceBusConfigurator UseRabbitMq(this IServiceBusConfigurator configurator,
             Action<ITransportFactoryConfigurator> configureFactory)
         {
-            configurator.SetSubscriptionObserver((bus, coordinator) => new SubscriptionBinder(bus));
+            configurator.SetSubscriptionObserver((bus, coordinator) => new RabbitSubscriptionBinder(bus));
 
             var busConfigurator = new PostCreateBusBuilderConfigurator(bus =>
                 {

@@ -111,6 +111,7 @@
     <Compile Include="Configuration\EndpointConfigurators\DefaultSerializerEndpointFactoryConfigurator.cs" />
     <Compile Include="Configuration\ShutdownConfigurationExtensions.cs" />
     <Compile Include="Configuration\InterceptorExtensions.cs" />
+    <Compile Include="Context\DeliveryMode.cs" />
     <Compile Include="Endpoints\EndpointExtensions.cs" />
     <Compile Include="Endpoints\IEndpointCache.cs" />
     <Compile Include="IFault.cs" />
@@ -593,7 +594,7 @@
     <Compile Include="Transports\IInboundMessageTracker.cs" />
     <Compile Include="Transports\IInboundTransport.cs" />
     <Compile Include="Transports\IMessageNameFormatter.cs" />
-    <Compile Include="Transports\InboundTransport.cs" />
+    <Compile Include="Transports\Rabbit\InboundRabbitTransport.cs" />
     <Compile Include="Transports\InvalidConnectionException.cs" />
     <Compile Include="Transports\IOutboundTransport.cs" />
     <Compile Include="Transports\ITransport.cs" />
@@ -601,7 +602,7 @@
     <Compile Include="Endpoints\RabbitEndpointManagement.cs" />
     <Compile Include="Transports\MessageName.cs" />
     <Compile Include="Transports\MessageTrackerFactory.cs" />
-    <Compile Include="Transports\OutboundTransport.cs" />
+    <Compile Include="Transports\OutboundRabbitTransport.cs" />
     <Compile Include="Pipeline\PublishEndpointInterceptor.cs" />
     <Compile Include="Pipeline\Sinks\PublishEndpointSinkLocator.cs" />
     <Compile Include="Transports\PublisherConfirm\PublisherConfirmSettings.cs" />
@@ -612,7 +613,7 @@
     <Compile Include="Transports\MessageNameFormatter.cs" />
     <Compile Include="Transports\Bindings\ProducerBinding.cs" />
     <Compile Include="Transports\Bindings\PublisherBinding.cs" />
-    <Compile Include="Transports\SubscriptionBinder.cs" />
+    <Compile Include="Transports\Rabbit\RabbitSubscriptionBinder.cs" />
     <Compile Include="Transports\TransportFactory.cs" />
     <Compile Include="Transports\ReconnectPolicy.cs" />
     <Compile Include="Transports\RetryPolicy.cs" />

@@ -26,7 +26,7 @@ namespace Burrows.Transports
     using RabbitMQ.Client;
     using RabbitMQ.Client.Exceptions;
 
-    public class OutboundTransport : IOutboundTransport
+    public class OutboundRabbitTransport : IOutboundTransport
     {
         private readonly IRabbitEndpointAddress _address;
         readonly bool _bindToQueue;
@@ -34,7 +34,7 @@ namespace Burrows.Transports
         private readonly IConnectionHandler<TransportConnection> _connectionHandler;
         ProducerBinding _producer;
 
-        public OutboundTransport(IRabbitEndpointAddress address,
+        public OutboundRabbitTransport(IRabbitEndpointAddress address,
             PublisherConfirmSettings publisherConfirmSettings,
             IConnectionHandler<TransportConnection> connectionHandler, bool bindToQueue)
         {
@@ -59,7 +59,7 @@ namespace Burrows.Transports
                 {
                     IBasicProperties properties = _producer.CreateProperties();
 
-                    properties.SetPersistent(true);
+                    properties.SetPersistent(context.DeliveryMode == DeliveryMode.Persistent);
                     properties.MessageId = context.MessageId ?? properties.MessageId ?? NewIds.NewId.Next().ToString();
                     if (context.ExpirationTime.HasValue)
                     {

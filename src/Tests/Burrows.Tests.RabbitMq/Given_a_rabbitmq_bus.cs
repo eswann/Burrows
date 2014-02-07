@@ -24,21 +24,21 @@ namespace Burrows.Tests.RabbitMq
 	public abstract class Given_a_rabbitmq_bus :
 		LocalTestFixture<TransportFactory>
 	{
-		protected Given_a_rabbitmq_bus()
-		{
-			LocalUri = new Uri("rabbitmq://localhost:5672/test_queue");
-			LocalErrorUri = new Uri("rabbitmq://localhost:5672/test_queue_error");
+        protected Given_a_rabbitmq_bus()
+        {
+            LocalUri = new Uri("rabbitmq://localhost:5672/test_queue");
+            LocalErrorUri = new Uri("rabbitmq://localhost:5672/test_queue_error");
 
-			ConfigureEndpointFactory(x => { x.UseRabbitMq(); });
-		}
+            ConfigureEndpointFactory(x => { x.UseRabbitMq(); });
+        }
 
-		protected Uri LocalErrorUri { get; private set; }
+        protected Uri LocalErrorUri { get; private set; }
 
-		protected override void ConfigureServiceBus(Uri uri, IServiceBusConfigurator configurator)
-		{
-			base.ConfigureServiceBus(uri, configurator);
+        protected override void ConfigureServiceBus(Uri uri, IServiceBusConfigurator configurator)
+        {
+            base.ConfigureServiceBus(uri, configurator);
 
-			configurator.UseRabbitMq();
-		}
+            configurator.UseRabbitMq();
+        }
 	}
 }

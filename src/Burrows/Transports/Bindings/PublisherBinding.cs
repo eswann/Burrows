@@ -75,7 +75,7 @@ namespace Burrows.Transports.Bindings
             }
         }
 
-        public void ExchangeBind(string destination, string source)
+        public void ExchangeBind(string destination, string source, bool destinationTemporary = false, bool sourceTemporary = false)
         {
             var binding = new ExchangeBinding(destination, source);
 
@@ -83,22 +83,16 @@ namespace Burrows.Transports.Bindings
                 if (!_exchangeBindings.Add(binding))
                     return;
 
-            try
+            lock (_lock)
             {
-                lock(_lock)
+                if (_channel != null)
                 {
-                    if (_channel != null)
-                    {
-                        ExchangeDeclare(destination, false);
-                        ExchangeDeclare(source, false);
+                    ExchangeDeclare(destination, destinationTemporary);
+                    ExchangeDeclare(source, sourceTemporary);
 
-                        _channel.ExchangeBind(destination, source, "");
-                    }
-                    
+                    _channel.ExchangeBind(destination, source, "");
                 }
-            }
-            catch
-            {
+
             }
         }
 

@@ -11,11 +11,14 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
 using System.Threading;
 using Burrows.Configuration;
 using Burrows.Configuration.BusConfigurators;
+using Burrows.Transports.Configuration.Extensions;
 using Magnum.Extensions;
 using NUnit.Framework;
+using Burrows.Context;
 
 namespace Burrows.Tests.RabbitMq
 {
@@ -29,10 +32,10 @@ namespace Burrows.Tests.RabbitMq
             var responseReceived = new ManualResetEvent(false);
 
             LocalBus.GetEndpoint(RemoteUri).SendRequest(new Request(), LocalBus, x =>
-                {
-                    x.Handle<Response>((context, message) => responseReceived.Set());
-                    x.SetTimeout(8.Seconds());
-                });
+            {
+                x.Handle<Response>((context, message) => responseReceived.Set());
+                x.SetTimeout(8.Seconds());
+            });
 
             Assert.IsTrue(responseReceived.WaitOne(8.Seconds()), "No Response");
         }
@@ -41,7 +44,7 @@ namespace Burrows.Tests.RabbitMq
         {
             base.ConfigureRemoteBus(configurator);
 
-            configurator.Subscribe(x => x.Handler<Request>((context, message) => context.Respond(new Response(), null)));
+            configurator.Subscribe(x => x.Handler<Request>((context, message) => context.Respond(new Response())));
         }
 
 
@@ -52,6 +55,28 @@ namespace Burrows.Tests.RabbitMq
 
         class Response
         {
+        }
+
+        [TestFixture]
+        public class When_a_temporary_queue_with_a_control_queue_is_created
+        {
+            [Test, Explicit]
+            public void Should_remove_the_queues_and_exchanges_on_shutdown()
+            {
+                var uri = new Uri("rabbitmq://localhost/temporary_test_queue?temporary=true");
+                using (IServiceBus bus = ServiceBusFactory.New(x =>
+                {
+                    x.ReceiveFrom(uri);
+                    x.UseRabbitMq();
+                    x.UseControlBus();
+                }))
+                {
+                    Console.WriteLine("Using address: " + bus.Endpoint.Address.Uri);
+                    Console.WriteLine("Control bus address: " + bus.ControlBus.Endpoint.Address.Uri);
+
+                    Thread.Sleep(30000);
+                }
+            }
         }
     }
 }

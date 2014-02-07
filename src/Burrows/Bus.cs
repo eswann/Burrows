@@ -59,12 +59,14 @@ namespace Burrows
 			if (_instance != null)
 				throw new ConfigurationException("Bus.Instance has already been initialized. Call Shutdown first.");
 
-			_instance = ServiceBusFactory.New(configurator =>
-				{
-					configurator.UseControlBus();
+            //_instance = ServiceBusFactory.New(configurator =>
+            //    {
+            //        configurator.UseControlBus();
 
-					configure(configurator);
-				});
+            //        configure(configurator);
+            //    });
+
+		    _instance = ServiceBusFactory.New(configure);
 		}
 
 		/// <summary>

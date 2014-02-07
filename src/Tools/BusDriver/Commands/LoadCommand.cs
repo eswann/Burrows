@@ -20,7 +20,6 @@ namespace BusDriver.Commands
     using Magnum.Extensions;
     using Magnum.FileSystem;
     using Magnum.FileSystem.Internal;
-    using Burrows;
     using Burrows.Context;
     using Burrows.Exceptions;
     using Burrows.Logging;
@@ -139,6 +138,13 @@ namespace BusDriver.Commands
             {
                 get { return typeof(object); }
             }
+
+            public void SetDeliveryMode(DeliveryMode deliveryMode)
+            {
+                DeliveryMode = deliveryMode;
+            }
+
+            public DeliveryMode DeliveryMode { get; private set; }
 
             public void SerializeTo(Stream stream)
             {

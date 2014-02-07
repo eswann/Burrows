@@ -18,6 +18,7 @@ using Burrows.Endpoints;
 using Burrows.Exceptions;
 using Burrows.Pipeline.Sinks;
 using Burrows.Transports;
+using Burrows.Transports.Rabbit;
 using Magnum.Extensions;
 using Magnum.Reflection;
 using Burrows.Pipeline.Configuration;
@@ -35,14 +36,14 @@ namespace Burrows.Pipeline
         private readonly IDictionary<Type, UnsubscribeAction> _added;
         private readonly IRabbitEndpointAddress _address;
         private readonly IServiceBus _bus;
-        private readonly InboundTransport _inboundTransport;
+        private readonly InboundRabbitTransport _inboundTransport;
         private readonly IMessageNameFormatter _messageNameFormatter;
 
         public PublishEndpointInterceptor(IServiceBus bus)
         {
             _bus = bus;
 
-            _inboundTransport = _bus.Endpoint.InboundTransport as InboundTransport;
+            _inboundTransport = _bus.Endpoint.InboundTransport as InboundRabbitTransport;
             if (_inboundTransport == null)
                 throw new ConfigurationException(
                     "The bus must be receiving from a RabbitMQ endpoint for this interceptor to work");

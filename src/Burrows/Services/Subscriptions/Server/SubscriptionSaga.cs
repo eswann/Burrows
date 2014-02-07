@@ -29,54 +29,54 @@ namespace Burrows.Services.Subscriptions.Server
         static SubscriptionSaga()
         {
             Define(() =>
-                {
-                    Correlate(DuplicateClientRemoved)
-                        .By(
-                            (saga, message) =>
-                            saga.SubscriptionInfo.ClientId == message.CorrelationId && saga.CurrentState == Active);
+            {
+                Correlate(DuplicateClientRemoved)
+                    .By(
+                        (saga, message) =>
+                        saga.SubscriptionInfo.ClientId == message.CorrelationId && saga.CurrentState == Active);
 
-                    Correlate(ClientAdded)
-                        .By((saga, message) => saga.SubscriptionInfo.EndpointUri == message.DataUri
-                                               && saga.SubscriptionInfo.ClientId != message.ClientId
-                                               && saga.CurrentState == Active);
+                Correlate(ClientAdded)
+                    .By((saga, message) => saga.SubscriptionInfo.EndpointUri == message.DataUri
+                                           && saga.SubscriptionInfo.ClientId != message.ClientId
+                                           && saga.CurrentState == Active);
 
-                    Correlate(SubscriptionRemoved)
-                        .By(
-                            (saga, message) =>
-                            saga.SubscriptionInfo.SubscriptionId == message.CorrelationId && saga.CurrentState == Active);
+                Correlate(SubscriptionRemoved)
+                    .By(
+                        (saga, message) =>
+                        saga.SubscriptionInfo.SubscriptionId == message.CorrelationId && saga.CurrentState == Active);
 
-                    Correlate(DuplicateSubscriptionAdded)
-                        .By((saga, message) => saga.SubscriptionInfo.MessageName == message.Subscription.MessageName
-                                               && saga.SubscriptionInfo.EndpointUri == message.Subscription.EndpointUri
-                                               && saga.SubscriptionInfo.ClientId != message.Subscription.ClientId
-                                               && saga.CurrentState == Active);
+                Correlate(DuplicateSubscriptionAdded)
+                    .By((saga, message) => saga.SubscriptionInfo.MessageName == message.Subscription.MessageName
+                                           && saga.SubscriptionInfo.EndpointUri == message.Subscription.EndpointUri
+                                           && saga.SubscriptionInfo.ClientId != message.Subscription.ClientId
+                                           && saga.CurrentState == Active);
 
-                    Initially(
-                        When(SubscriptionAdded)
-                            .Then((saga, message) =>
-                                {
-                                    saga.SubscriptionInfo = message.Subscription;
-                                    saga.NotifySubscriptionAdded();
-                                })
-                            .TransitionTo(Active));
+                Initially(
+                    When(SubscriptionAdded)
+                        .Then((saga, message) =>
+                        {
+                            saga.SubscriptionInfo = message.Subscription;
+                            saga.NotifySubscriptionAdded();
+                        })
+                        .TransitionTo(Active));
 
-                    During(Active,
-                        When(SubscriptionRemoved)
-                            .Then((saga, message) => saga.NotifySubscriptionRemoved(message.Subscription))
-                            .Complete(),
-                        When(DuplicateSubscriptionAdded)
-                            .Then((saga, message) => saga.NotifySubscriptionRemoved(message.Subscription))
-                            .Complete(),
-                        When(DuplicateClientRemoved)
-                            .Then((saga, message) => saga.NotifySubscriptionRemoved())
-                            .Complete(),
-                        When(ClientAdded)
-                            .Then((saga, message) => saga.NotifySubscriptionRemoved())
-                            .Complete()
-                        );
+                During(Active,
+                    When(SubscriptionRemoved)
+                        .Then((saga, message) => saga.NotifySubscriptionRemoved(message.Subscription))
+                        .Complete(),
+                    When(DuplicateSubscriptionAdded)
+                        .Then((saga, message) => saga.NotifySubscriptionRemoved(saga.SubscriptionInfo))
+                        .Complete(),
+                    When(DuplicateClientRemoved)
+                        .Then((saga, message) => saga.NotifySubscriptionRemoved())
+                        .Complete(),
+                    When(ClientAdded)
+                        .Then((saga, message) => saga.NotifySubscriptionRemoved())
+                        .Complete()
+                    );
 
-                    RemoveWhen(x => x.CurrentState == Completed);
-                });
+                RemoveWhen(x => x.CurrentState == Completed);
+            });
         }
 
         [UsedImplicitly]
@@ -110,7 +110,7 @@ namespace Burrows.Services.Subscriptions.Server
 
         void NotifySubscriptionAdded()
         {
-            Bus.Publish(new SubscriptionAdded {Subscription = SubscriptionInfo});
+            Bus.Publish(new SubscriptionAdded { Subscription = SubscriptionInfo });
         }
 
         void NotifySubscriptionRemoved()
@@ -120,7 +120,7 @@ namespace Burrows.Services.Subscriptions.Server
 
         void NotifySubscriptionRemoved(SubscriptionInformation subscription)
         {
-            Bus.Publish(new SubscriptionRemoved {Subscription = subscription});
+            Bus.Publish(new SubscriptionRemoved { Subscription = subscription });
         }
     }
 }

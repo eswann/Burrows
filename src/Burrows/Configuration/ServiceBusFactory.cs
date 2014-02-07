@@ -35,7 +35,7 @@ namespace Burrows.Configuration
 
 			var configurator = new ServiceBusConfigurator(_defaultSettings);
 
-			configurator.EnableMessageTracing();
+            //configurator.EnableMessageTracing();
 
 			configure(configurator);
 

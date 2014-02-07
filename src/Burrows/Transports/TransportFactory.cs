@@ -13,6 +13,7 @@
 
 using Burrows.Endpoints;
 using Burrows.Transports.PublisherConfirm;
+using Burrows.Transports.Rabbit;
 
 namespace Burrows.Transports
 {
@@ -109,7 +110,7 @@ namespace Burrows.Transports
 
             IConnectionHandler<TransportConnection> connectionHandler = GetConnection(_inboundConnections, address);
 
-            return new InboundTransport(address, connectionHandler, settings.PurgeExistingMessages,
+            return new InboundRabbitTransport(address, connectionHandler, settings.PurgeExistingMessages,
                 _messageNameFormatter);
         }
 
@@ -124,7 +125,7 @@ namespace Burrows.Transports
 
             IConnectionHandler<TransportConnection> connectionHandler = GetConnection(_outboundConnections, address);
 
-            return new OutboundTransport(address, _publisherConfirmSettings, connectionHandler, false);
+            return new OutboundRabbitTransport(address, _publisherConfirmSettings, connectionHandler, false);
         }
 
         public IOutboundTransport BuildError(ITransportSettings settings)
@@ -138,7 +139,7 @@ namespace Burrows.Transports
 
             IConnectionHandler<TransportConnection> connection = GetConnection(_outboundConnections, address);
 
-            return new OutboundTransport(address, _publisherConfirmSettings, connection, true);
+            return new OutboundRabbitTransport(address, _publisherConfirmSettings, connection, true);
         }
 
         public IMessageNameFormatter MessageNameFormatter

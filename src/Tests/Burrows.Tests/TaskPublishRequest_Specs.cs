@@ -14,6 +14,7 @@
 using Burrows.Configuration;
 using Burrows.Configuration.BusConfigurators;
 using Burrows.Tests.Framework;
+using Stact.MessageHeaders;
 
 namespace Burrows.Tests
 {

@@ -11,6 +11,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System.Diagnostics;
 using Burrows.Configuration;
 using Burrows.Tests.Framework;
 
@@ -271,7 +272,7 @@ namespace Burrows.Tests
 
             var ping = new PingMessage();
 
-            TimeSpan timeout = 24.Seconds();
+            TimeSpan timeout = Debugger.IsAttached ? 5.Minutes() : 24.Seconds();
 
             LocalBus.PublishRequest(ping, x =>
                 {
