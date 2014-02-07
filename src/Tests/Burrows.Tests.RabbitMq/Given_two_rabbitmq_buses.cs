@@ -22,7 +22,7 @@ using Burrows.Transports.Configuration.Extensions;
 namespace Burrows.Tests.RabbitMq
 {
     [Scenario]
-    public abstract class Given_two_rabbitmq_buses_walk_into_a_bar
+    public abstract class Given_two_rabbitmq_buses
     {
         protected Uri LocalUri { get; set; }
         protected Uri RemoteUri { get; set; }

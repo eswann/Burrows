@@ -10,7 +10,7 @@ namespace Burrows.Tests.RabbitMq
 {
     [TestFixture]
     public class PublisherConfirm_Specs:
-        Given_two_rabbitmq_buses_walk_into_a_bar
+        Given_two_rabbitmq_buses
     {
         [Test]
         public void Should_call_the_ack_method_upon_delivery()

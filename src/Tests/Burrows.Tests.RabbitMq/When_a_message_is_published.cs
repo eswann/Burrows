@@ -79,7 +79,7 @@ namespace Burrows.Tests.RabbitMq
 
 	[Scenario]
 	public class When_a_message_is_published_between_buses :
-		Given_two_rabbitmq_buses_walk_into_a_bar
+		Given_two_rabbitmq_buses
 	{
 		Future<A> _received;
 		Future<B> _receivedB;

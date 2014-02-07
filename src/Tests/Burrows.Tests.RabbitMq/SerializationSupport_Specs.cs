@@ -10,7 +10,7 @@ namespace Burrows.Tests.RabbitMq
 {
     [TestFixture]
     public class When_using_mixed_serialization_types :
-        Given_two_rabbitmq_buses_walk_into_a_bar
+        Given_two_rabbitmq_buses
     {
         readonly Future<A> _requestReceived;
         readonly Future<B> _responseReceived;
