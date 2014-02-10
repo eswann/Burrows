@@ -65,8 +65,7 @@ namespace Burrows.Tests.RabbitMq
 			_receivedB.Value.StringB.ShouldEqual("ValueB");
 		}
 
-		class A :
-			B
+		class A : B
 		{
 			public string StringA { get; set; }
 		}
@@ -122,8 +121,7 @@ namespace Burrows.Tests.RabbitMq
 			_receivedB.Value.StringB.ShouldEqual("ValueB");
 		}
 
-		class A :
-			B
+		class A : B
 		{
 			public string StringA { get; set; }
 		}

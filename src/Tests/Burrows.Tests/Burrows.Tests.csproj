@@ -321,10 +321,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RabbitMq\" />
     <Folder Include="Reactive\Samples\" />
-    <Folder Include="Services\LoadBalancer\" />
-    <Folder Include="Services\Metadata\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

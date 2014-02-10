@@ -603,7 +603,7 @@
     <Compile Include="Endpoints\RabbitEndpointManagement.cs" />
     <Compile Include="Transports\MessageName.cs" />
     <Compile Include="Transports\MessageTrackerFactory.cs" />
-    <Compile Include="Transports\OutboundRabbitTransport.cs" />
+    <Compile Include="Transports\Rabbit\OutboundRabbitTransport.cs" />
     <Compile Include="Pipeline\PublishEndpointInterceptor.cs" />
     <Compile Include="Pipeline\Sinks\PublishEndpointSinkLocator.cs" />
     <Compile Include="Transports\PublisherConfirm\PublisherConfirmSettings.cs" />
@@ -657,6 +657,7 @@
     <Compile Include="Util\IndexedSagaProperty.cs" />
     <Compile Include="Util\LambdaEqualityComparer.cs" />
     <Compile Include="Util\ObjectExtensions.cs" />
+    <Compile Include="Util\ReSharperStaticAnalysis.cs" />
     <Compile Include="Util\UriExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

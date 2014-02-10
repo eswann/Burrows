@@ -1,4 +1,5 @@
 ﻿using Burrows.Endpoints;
+using Burrows.Transports.Configuration.Builders;
 using RabbitMQ.Client;
 
 namespace Burrows.RabbitUtils
@@ -9,7 +10,9 @@ namespace Burrows.RabbitUtils
         {
             RabbitEndpointAddress address = RabbitEndpointAddress.Parse(uri);
 
-            using (var connection = address.ConnectionFactory.CreateConnection())
+            var connectionFactory = new ConnectionFactoryBuilder(address).Build();
+
+            using (var connection = connectionFactory.CreateConnection())
             {
                 using (IModel model = connection.CreateModel())
                 {

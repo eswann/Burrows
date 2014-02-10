@@ -11,21 +11,20 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using Burrows.Context;
 using Burrows.Endpoints;
 using Burrows.Transports.Bindings;
 using Burrows.Transports.PublisherConfirm;
+using Magnum;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 
-namespace Burrows.Transports
+namespace Burrows.Transports.Rabbit
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using Context;
-    using Magnum;
-    using RabbitMQ.Client;
-    using RabbitMQ.Client.Exceptions;
-
     public class OutboundRabbitTransport : IOutboundTransport
     {
         private readonly IRabbitEndpointAddress _address;

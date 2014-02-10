@@ -89,6 +89,7 @@
     <Compile Include="Bytes_Specs.cs" />
     <Compile Include="ConnectingFailure_Specs.cs" />
     <Compile Include="ContextSetup.cs" />
+    <Compile Include="RabbitUtilsTests\When_a_queue_is_purged.cs" />
     <Compile Include="When_a_message_consumer_subscribes_to_control_bus.cs" />
     <Compile Include="Given_a_service_bus_and_a_temporary_client.cs" />
     <Compile Include="Given_two_rabbitmq_buses.cs" />
