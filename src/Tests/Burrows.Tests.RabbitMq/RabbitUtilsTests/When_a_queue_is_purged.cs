@@ -1,6 +1,7 @@
 ﻿using System;
 using Burrows.Configuration;
 using Burrows.Configuration.BusConfigurators;
+using Burrows.RabbitCommands;
 using Burrows.Tests.Framework;
 using NUnit.Framework;
 
@@ -17,7 +18,6 @@ namespace Burrows.Tests.RabbitMq.RabbitUtilsTests
             _received = new Future<TestMessage>();
 
             configurator.Subscribe(s => s.Handler<TestMessage>(message => _received.Complete(message)));
-
         }
         
         [Test]
@@ -26,7 +26,9 @@ namespace Burrows.Tests.RabbitMq.RabbitUtilsTests
             //publish a few messages to set up the subscriber queue
             LocalBus.Publish(new TestMessage { Message = "ValueA" });
 
-            RabbitUtils.QueuePurge.PurgeQueue(LocalUri.ToString());
+            var purgeCommand = new PurgeCommand(LocalUri.ToString());
+
+            purgeCommand.Execute();
         }
 
         class TestMessage

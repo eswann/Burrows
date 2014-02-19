@@ -2,13 +2,20 @@
 using Burrows.Transports.Configuration.Builders;
 using RabbitMQ.Client;
 
-namespace Burrows.RabbitUtils
+namespace Burrows.RabbitCommands
 {
-    public class QueuePurge
+    public class PurgeCommand : RabbitCommand
     {
-        public static void PurgeQueue(string uri)
+        private readonly string _uri;
+
+        public PurgeCommand(string uri)
         {
-            RabbitEndpointAddress address = RabbitEndpointAddress.Parse(uri);
+            _uri = uri;
+        }
+
+        public override bool Execute()
+        {
+            RabbitEndpointAddress address = RabbitEndpointAddress.Parse(_uri);
 
             var connectionFactory = new ConnectionFactoryBuilder(address).Build();
 
@@ -19,6 +26,8 @@ namespace Burrows.RabbitUtils
                     model.QueuePurge(address.Name);
                 }
             }
+
+            return true;
         }
     }
 }

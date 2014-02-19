@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using System.Text;
 using Burrows.Context;
+using Burrows.Transports.Rabbit;
 using Magnum.Extensions;
 using Magnum.TestFramework;
 using NUnit.Framework;
@@ -31,7 +32,7 @@ namespace Burrows.Tests.RabbitMq
         [SetUp]
         public void Setup()
         {
-            _factory = new TransportFactory();
+            _factory = new RabbitTransportFactory();
         }
 
         [TearDown]
@@ -127,7 +128,7 @@ namespace Burrows.Tests.RabbitMq
         readonly IRabbitEndpointAddress _error =
             RabbitEndpointAddress.Parse("rabbitmq://guest:guest@localhost:5672/mt/mt-unit-tests-error");
 
-        TransportFactory _factory;
+        RabbitTransportFactory _factory;
     }
 
 

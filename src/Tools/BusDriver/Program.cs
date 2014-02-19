@@ -13,6 +13,7 @@
 
 using Burrows.Configuration;
 using Burrows.Log4Net.Logging;
+using Burrows.Transports.Rabbit;
 
 namespace BusDriver
 {
@@ -85,7 +86,7 @@ namespace BusDriver
 			{
 				Transports = new TransportCache();
 				Transports.AddTransportFactory(new LoopbackTransportFactory());
-				Transports.AddTransportFactory(new TransportFactory());
+				Transports.AddTransportFactory(new RabbitTransportFactory());
 
 				string line = CommandLine.GetUnparsedCommandLine().Trim();
 				if (line.IsNotEmpty())

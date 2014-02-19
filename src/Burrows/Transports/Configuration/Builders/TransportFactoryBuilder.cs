@@ -12,6 +12,7 @@
 // specific language governing permissions and limitations under the License.
 
 using Burrows.Transports.PublisherConfirm;
+using Burrows.Transports.Rabbit;
 
 namespace Burrows.Transports.Configuration.Builders
 {
@@ -47,9 +48,9 @@ namespace Burrows.Transports.Configuration.Builders
             _publisherConfirmSettings = publisherConfirmSettings;
         }
 
-        public TransportFactory Build()
+        public RabbitTransportFactory Build()
         {
-            var factory = new TransportFactory(_connectionFactoryBuilders, _publisherConfirmSettings);
+            var factory = new RabbitTransportFactory(_connectionFactoryBuilders, _publisherConfirmSettings);
 
             return factory;
         }

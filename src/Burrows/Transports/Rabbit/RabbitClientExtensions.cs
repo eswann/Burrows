@@ -19,7 +19,7 @@ namespace Burrows.Transports.Rabbit
 {
     public static class RabbitClientExtensions
     {
-        private static readonly ILog _log = Logger.Get<TransportFactory>();
+        private static readonly ILog _log = Logger.Get<RabbitTransportFactory>();
 
         /// <summary>
         /// Close and dispose of a RabbitMQ channel without throwing any exceptions

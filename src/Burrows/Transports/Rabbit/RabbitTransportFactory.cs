@@ -11,34 +11,32 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Burrows.Endpoints;
+using Burrows.Exceptions;
+using Burrows.Logging;
+using Burrows.Transports.Configuration.Builders;
+using Burrows.Transports.Configuration.Configurators;
 using Burrows.Transports.PublisherConfirm;
-using Burrows.Transports.Rabbit;
+using Magnum.Caching;
+using Magnum.Extensions;
+using RabbitMQ.Client;
 
-namespace Burrows.Transports
+namespace Burrows.Transports.Rabbit
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Configuration.Builders;
-    using Configuration.Configurators;
-    using Exceptions;
-    using Logging;
-    using Magnum.Caching;
-    using Magnum.Extensions;
-    using RabbitMQ.Client;
-
-    public class TransportFactory : ITransportFactory
+    public class RabbitTransportFactory : ITransportFactory
     {
         private readonly Cache<ConnectionFactory, IConnectionFactoryBuilder> _connectionFactoryBuilders;
         private readonly Cache<ConnectionFactory, IConnectionHandler<TransportConnection>> _inboundConnections;
-        private readonly ILog _log = Logger.Get<TransportFactory>();
+        private readonly ILog _log = Logger.Get<RabbitTransportFactory>();
         private readonly IMessageNameFormatter _messageNameFormatter;
         private readonly PublisherConfirmSettings _publisherConfirmSettings;
         private readonly Cache<ConnectionFactory, IConnectionHandler<TransportConnection>> _outboundConnections;
         bool _disposed;
 
-        public TransportFactory(IEnumerable<KeyValuePair<Uri, IConnectionFactoryBuilder>> connectionFactoryBuilders, 
+        public RabbitTransportFactory(IEnumerable<KeyValuePair<Uri, IConnectionFactoryBuilder>> connectionFactoryBuilders, 
             PublisherConfirmSettings publisherConfirmSettings)
         {
             _publisherConfirmSettings = publisherConfirmSettings;
@@ -59,7 +57,7 @@ namespace Burrows.Transports
             _messageNameFormatter = new MessageNameFormatter();
         }
 
-        public TransportFactory()
+        public RabbitTransportFactory()
         {
             _publisherConfirmSettings = new PublisherConfirmSettings();
             _inboundConnections = new ConcurrentCache<ConnectionFactory, IConnectionHandler<TransportConnection>>(

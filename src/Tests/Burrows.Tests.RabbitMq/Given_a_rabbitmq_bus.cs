@@ -14,6 +14,7 @@
 using System;
 using Burrows.Configuration.BusConfigurators;
 using Burrows.Tests.Framework.Fixtures;
+using Burrows.Transports.Rabbit;
 using Magnum.TestFramework;
 using Burrows.Transports;
 using Burrows.Transports.Configuration.Extensions;
@@ -22,7 +23,7 @@ namespace Burrows.Tests.RabbitMq
 {
     [Scenario]
 	public abstract class Given_a_rabbitmq_bus :
-		LocalTestFixture<TransportFactory>
+		LocalTestFixture<RabbitTransportFactory>
 	{
         protected Given_a_rabbitmq_bus()
         {

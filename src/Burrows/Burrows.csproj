@@ -111,7 +111,9 @@
     <Compile Include="Configuration\EndpointConfigurators\DefaultSerializerEndpointFactoryConfigurator.cs" />
     <Compile Include="Configuration\ShutdownConfigurationExtensions.cs" />
     <Compile Include="Configuration\InterceptorExtensions.cs" />
-    <Compile Include="Context\DeliveryMode.cs" />
+    <Compile Include="Context\DeliveryMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Endpoints\EndpointExtensions.cs" />
     <Compile Include="Endpoints\IEndpointCache.cs" />
     <Compile Include="IFault.cs" />
@@ -148,7 +150,22 @@
     <Compile Include="Publishing\PublishSettings.cs" />
     <Compile Include="Publishing\BackingStores\UnconfirmedMessageFileRepository.cs" />
     <Compile Include="Publishing\BackingStores\UnconfirmedMessageRepositoryFactory.cs" />
-    <Compile Include="RabbitUtils\QueuePurge.cs" />
+    <Compile Include="RabbitCommands\IRabbitCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RabbitCommands\LoadCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RabbitCommands\MoveCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RabbitCommands\PurgeCommand.cs" />
+    <Compile Include="RabbitCommands\SaveCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RabbitCommands\TransportCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Serialization\NonClosingStream.cs" />
     <Compile Include="Serialization\IMessageSerializer.cs" />
     <Compile Include="Configuration\Configuration\InterceptingConsumerFactory.cs" />
@@ -317,7 +334,6 @@
     <Compile Include="NewIds\NewId.cs" />
     <Compile Include="NewIds\NewIdExtensions.cs" />
     <Compile Include="NewIds\NewIdGenerator.cs" />
-    <Compile Include="NewIds\NewIdProviders\DateTimeTickProvider.cs" />
     <Compile Include="NewIds\NewIdProviders\NetworkAddressWorkerIdProvider.cs" />
     <Compile Include="NewIds\NewIdProviders\StopwatchTickProvider.cs" />
     <Compile Include="Pipeline\Configuration\InboundRequestMessageRouterConfigurator.cs" />
@@ -580,6 +596,9 @@
     <Compile Include="Transports\Configuration\Configurators\RequestedHeartbeatConnectionFactoryConfigurator.cs" />
     <Compile Include="Transports\Configuration\Configurators\SslConnectionFactoryConfigurator.cs" />
     <Compile Include="Transports\Configuration\Configurators\UsernameConnectionFactoryConfigurator.cs" />
+    <Compile Include="Transports\Loopback\LoopbackMessage.cs" />
+    <Compile Include="Transports\Loopback\LoopbackTransport.cs" />
+    <Compile Include="Transports\Loopback\LoopbackTransportFactory.cs" />
     <Compile Include="Transports\Rabbit\RabbitClientExtensions.cs" />
     <Compile Include="Transports\Configuration\Extensions\TransportServiceBusExtensions.cs" />
     <Compile Include="Transports\ExchangeBinding.cs" />
@@ -615,10 +634,10 @@
     <Compile Include="Transports\Bindings\ProducerBinding.cs" />
     <Compile Include="Transports\Bindings\PublisherBinding.cs" />
     <Compile Include="Transports\Rabbit\RabbitSubscriptionBinder.cs" />
-    <Compile Include="Transports\TransportFactory.cs" />
     <Compile Include="Transports\ReconnectPolicy.cs" />
     <Compile Include="Transports\RetryPolicy.cs" />
     <Compile Include="Testing\ScenarioBuilders\BusTestScenarioExtensions.cs" />
+    <Compile Include="Transports\Rabbit\RabbitTransportFactory.cs" />
     <Compile Include="Transports\TransportSettings.cs" />
     <Compile Include="Endpoints\EndpointCacheExtensions.cs" />
     <Compile Include="Endpoints\EndpointFactory.cs" />
@@ -649,8 +668,6 @@
     <Compile Include="Services\Subscriptions\Client\SubscriptionClient.cs" />
     <Compile Include="Services\Subscriptions\Server\SubscriptionService.cs" />
     <Compile Include="Transports\ITransportSettings.cs" />
-    <Compile Include="Transports\Loopback\LoopbackMessage.cs" />
-    <Compile Include="Transports\Loopback\LoopbackTransportFactory.cs" />
     <Compile Include="Transports\Transport.cs" />
     <Compile Include="Util\CheckConvention.cs" />
     <Compile Include="Util\IdempotentHashtable.cs" />
@@ -715,7 +732,6 @@
     <Compile Include="Services\Timeout\Messages\TimeoutScheduled.cs" />
     <Compile Include="Services\Timeout\Server\TimeoutSaga.cs" />
     <Compile Include="Endpoints\EndpointSettings.cs" />
-    <Compile Include="Transports\Loopback\LoopbackTransport.cs" />
     <Compile Include="Transports\InMemoryInboundMessageTracker.cs" />
     <Compile Include="Transports\NullTransport.cs" />
     <Compile Include="Util\ExpressionVisitor.cs" />
@@ -801,6 +817,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="Transports\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RabbitUtils\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -15,6 +15,7 @@ using System;
 using Burrows.Configuration.Configurators;
 using Burrows.Configuration.EndpointConfigurators;
 using Burrows.Endpoints;
+using Burrows.Transports.Rabbit;
 
 namespace Burrows.Transports.Configuration.Configurators
 {
@@ -58,7 +59,7 @@ namespace Burrows.Transports.Configuration.Configurators
             AddConfigurator(hostConfigurator);
         }
 
-		public TransportFactory Build()
+		public RabbitTransportFactory Build()
 		{
 			var builder = new TransportFactoryBuilder();
 

@@ -244,7 +244,6 @@
     <Compile Include="TestExtensions.cs" />
     <Compile Include="TextFixtures\EndpointCacheProxy.cs" />
     <Compile Include="TextFixtures\SubscriptionServiceTestFixture.cs" />
-    <Compile Include="Transports\LoopbackTransportContract.cs" />
     <Compile Include="Saga\InitiateSaga_Specs.cs" />
     <Compile Include="Pipeline\MessageFilter_Specs.cs" />
     <Compile Include="Pipeline\OutboundEndpoint_Specs.cs" />
