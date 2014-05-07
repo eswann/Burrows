@@ -14,7 +14,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Burrows.Publishing.BackingStores
 {
@@ -23,7 +22,7 @@ namespace Burrows.Publishing.BackingStores
         private readonly List<ConfirmableMessage> _messageStore = new List<ConfirmableMessage>();
         private static readonly object _syncLock = new object();
 
-        public Task<IList<ConfirmableMessage>> GetAndDeleteMessages(string publisherId, int pageSize)
+        public IList<ConfirmableMessage> GetAndDeleteMessages(string publisherId, int pageSize)
         {
             IList<ConfirmableMessage> results;
             int count = _messageStore.Count;
@@ -34,10 +33,10 @@ namespace Burrows.Publishing.BackingStores
                 results = _messageStore.Take(count).ToList();
                 _messageStore.RemoveRange(0, count);
             }
-            return Task.FromResult(results);
+            return results;
         }
 
-        public Task StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId)
+        public void StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId)
         {
             lock (_syncLock)
             {
@@ -47,7 +46,6 @@ namespace Burrows.Publishing.BackingStores
                     _messageStore.Add(message);
                 }
             }
-            return Task.FromResult(false);
         }
 
     }

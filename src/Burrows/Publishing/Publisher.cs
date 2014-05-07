@@ -96,7 +96,6 @@ namespace Burrows.Publishing
             _lastPublishRetryTimestamp = DateTime.UtcNow.Ticks;
             _checkOfflineTasksTimer = new Timer(CheckOfflineTasks, null, _publishSettings.TimerCheckInterval, _publishSettings.TimerCheckInterval);
 
-            RepublishStoredMessages().Wait();
         }
 
 
@@ -189,11 +188,7 @@ namespace Burrows.Publishing
                 lock (_failuresLock)
                 {
                     _publicationEnabled = _successiveFailures < _publishSettings.MaxSuccessiveFailures;
-                    if (_publicationEnabled)
-                    {
-                        //Good to go again, republish stored messages.
-                        RepublishStoredMessages().Wait();
-                    }
+                    RepublishStoredMessages();
                 }
             }
         }
@@ -221,7 +216,7 @@ namespace Burrows.Publishing
 
             if ((checkTime - _lastPublishRetryTimestamp) / TimeSpan.TicksPerMillisecond >= _publishSettings.PublishRetryInterval)
             {
-                RepublishOneStoredMessage().Wait();
+                RepublishOneStoredMessage();
             }
 
             checkTime = DateTime.UtcNow.Ticks;
@@ -272,7 +267,7 @@ namespace Burrows.Publishing
         /// <summary>
         /// Used when attempting to republish all stored messages.
         /// </summary>
-        private async Task RepublishStoredMessages()
+        public void RepublishStoredMessages()
         {
             if (!_publicationEnabled)
                 return;
@@ -285,7 +280,7 @@ namespace Burrows.Publishing
                 while (_publicationEnabled)
                 {
                     IList<ConfirmableMessage> storedMessages = 
-                        await _messageRepository.GetAndDeleteMessages(_publishSettings.PublisherId, _publishSettings.GetStoredMessagesBatchSize);
+                        _messageRepository.GetAndDeleteMessages(_publishSettings.PublisherId, _publishSettings.GetStoredMessagesBatchSize);
 
                     if (storedMessages.Count <= 0)
                         break;
@@ -307,14 +302,14 @@ namespace Burrows.Publishing
         /// <summary>
         /// Used when attempting to see whether or not publishing can be restarted
         /// </summary>
-        private async Task RepublishOneStoredMessage()
+        private void RepublishOneStoredMessage()
         {
             if (_publicationEnabled || Convert.ToBoolean(_processingBufferedMessages) || Convert.ToBoolean(Interlocked.CompareExchange(ref _retryingPublish, 1, 0)))
                 return;
 
             try
             {
-                ConfirmableMessage message = (await _messageRepository.GetAndDeleteMessages(_publishSettings.PublisherId, 1)).FirstOrDefault();
+                ConfirmableMessage message = (_messageRepository.GetAndDeleteMessages(_publishSettings.PublisherId, 1)).FirstOrDefault();
 
                 if (message != null)
                 {

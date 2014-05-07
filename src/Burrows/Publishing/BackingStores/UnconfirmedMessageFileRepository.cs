@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using Burrows.Logging;
 using Newtonsoft.Json;
@@ -44,7 +43,7 @@ namespace Burrows.Publishing.BackingStores
                 _rootFilePath += Path.DirectorySeparatorChar;
         }
 
-        public async Task<IList<ConfirmableMessage>> GetAndDeleteMessages(string publisherId, int pageSize)
+        public IList<ConfirmableMessage> GetAndDeleteMessages(string publisherId, int pageSize)
         {
             var results = new List<ConfirmableMessage>();
             var path = GetOrCreateDirectory(publisherId);
@@ -55,7 +54,7 @@ namespace Burrows.Publishing.BackingStores
                 string confirmableMessageText;
                 using (var streamReader = new StreamReader(filePath))
                 {
-                    confirmableMessageText = await streamReader.ReadToEndAsync();
+                    confirmableMessageText = streamReader.ReadToEnd();
                 }
 
                 try
@@ -84,18 +83,18 @@ namespace Burrows.Publishing.BackingStores
             return results;
         }
 
-        public async Task StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId)
+        public void StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId)
         {
             string path = GetOrCreateDirectory(publisherId);
 
             ConfirmableMessage message;
             while (messages.TryDequeue(out message))
             {
-               await StoreMessage(message, path);
+               StoreMessage(message, path);
             }
         }
 
-        private async Task StoreMessage(ConfirmableMessage message, string path)
+        private void StoreMessage(ConfirmableMessage message, string path)
         {
             string typeName = message.Type.FullName;
 
@@ -119,7 +118,7 @@ namespace Burrows.Publishing.BackingStores
 
             using (var outfile = new StreamWriter(filePath))
             {
-                await outfile.WriteAsync(messageText);
+                outfile.Write(messageText);
             }
         }
 

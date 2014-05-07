@@ -13,14 +13,13 @@
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Burrows.Publishing.BackingStores
 {
     public interface IUnconfirmedMessageRepository
     {
-        Task<IList<ConfirmableMessage>> GetAndDeleteMessages(string publisherId, int pageSize);
+        IList<ConfirmableMessage> GetAndDeleteMessages(string publisherId, int pageSize);
 
-        Task StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId);
+        void StoreMessages(ConcurrentQueue<ConfirmableMessage> messages, string publisherId);
     }
 }

@@ -19,6 +19,8 @@ namespace Burrows.Publishing
     {
         void Publish<T>(T message);
 
+        void RepublishStoredMessages();
+
         IServiceBus ServiceBus { get; }
     }
 }
