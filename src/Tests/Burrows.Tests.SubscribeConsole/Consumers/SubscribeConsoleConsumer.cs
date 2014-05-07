@@ -3,9 +3,9 @@ using Burrows.Tests.Messages;
 
 namespace Burrows.Tests.SubscribeConsole.Consumers
 {
-    public class SubscribeConsoleConsumer : Consumes<PublishFromConsumerMessage>.All
+    public class SubscribeConsoleConsumer : Consumes<SimpleMessage>.All
     {
-        public void Consume(PublishFromConsumerMessage message)
+        public void Consume(SimpleMessage message)
         {
             Console.WriteLine("Just got a Publish From Consumer message");
 

@@ -15,6 +15,8 @@ namespace Burrows.Tests.PublishConsole
                 sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole").UseRabbitMq().UseLog4Net(),
                 ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore());
 
+            publisher.RepublishStoredMessages();
+
             //var publisher = new Publisher(
             //    sbc => sbc.ReceiveFrom(@"rabbitmq://localhost/PublishConsole").UseControlBus().UseLog4Net(),
             //    ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore());
