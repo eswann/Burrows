@@ -52,6 +52,14 @@ The call to UsePublisherConfirms accepts an argument which tells this publisher 
 Typically, this would be based on the name of the publisher.  The extension WithFileBackingStore tells the publisher to store messages on the file system at the root
 location specified.  The account the publisher runs under must have persmissions to write and create directories under this root location to organize messages.
 
+####So publisher confirms are set up...how do I republish failed messages?
+If the publisher is still running, it will check at intervals to determine if Rabbit has again become available for publication and will start publishing again immediately.  However, if the publisher also goes down, how to I republish stored messages at startup?  Just call RepublishStoredMessages() on the publisher after instantiation.
+
+	var publisher = new Publisher(
+		sbc => sbc.Configure(@"rabbitmq://localhost/PublishConsole"),
+       	ps => ps.UsePublisherConfirms("PublishConsole").WithFileBackingStore("C:\MessageBackup")); 
+	publisher.RepublishStoredMessages();
+
 ###OK, I published something...how do I Consume it
 I'll save the details of how Burrows and RabbitMQ deliver messages to a longer blog post, but Burrows is based on the fantastic work that was put into MassTransit to 
 allow polymorphic message consumption.  The first thing to do is set up a consumer service, typically using TopShelf to help.  Having done that, you will need to configure
@@ -101,4 +109,14 @@ from or impements (interfaces and classes will work).
             Console.WriteLine("Just got a message");
         }
     }
+
+### Other Helpful Things
+There are now Rabbit utility command classes available under Burrows.RabbitCommands.  These are:
+Load, Move, Purge, and Save commands for operating directly on a Rabbit Queue.
+
+##  Change Log
+#### 0.3.1.0
+* Removed async saving from publisher confirms because this sometimes caused thread locking from the publisher constructur and the method was always being waited anyway.  Planning on a better more full implementation of async from the publisher in the future.
+* Removed RepublishStoredMessages() from the publisher constructure and added it to the IPublisher interface.  This must now be called (it is not automatically called in the constructor of the publisher).
+* Added Rabbit command classes.
 
