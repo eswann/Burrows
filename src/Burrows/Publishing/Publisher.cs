@@ -86,16 +86,18 @@ namespace Burrows.Publishing
                 _serviceBus = ServiceBusFactory.New(busConfigureAction);
             }
 
-            _confirmer = _publishSettings.Confirmer;
             _messageRepository = UnconfirmedMessageRepositoryFactory.Create(_publishSettings);
 
-            _confirmer.PublicationFailed += OnPublicationFailed;
-            _confirmer.PublicationSucceeded += OnPublicationSucceeded;
+            if (_publishSettings.UsePublisherConfirms)
+            {
+                _confirmer = _publishSettings.Confirmer;
+                _confirmer.PublicationFailed += OnPublicationFailed;
+                _confirmer.PublicationSucceeded += OnPublicationSucceeded;
 
-            _lastMessageBufferStoreTimestamp = DateTime.UtcNow.Ticks;
-            _lastPublishRetryTimestamp = DateTime.UtcNow.Ticks;
-            _checkOfflineTasksTimer = new Timer(CheckOfflineTasks, null, _publishSettings.TimerCheckInterval, _publishSettings.TimerCheckInterval);
-
+                _lastMessageBufferStoreTimestamp = DateTime.UtcNow.Ticks;
+                _lastPublishRetryTimestamp = DateTime.UtcNow.Ticks;
+                _checkOfflineTasksTimer = new Timer(CheckOfflineTasks, null, _publishSettings.TimerCheckInterval, _publishSettings.TimerCheckInterval);
+            }
         }
 
 
@@ -117,12 +119,18 @@ namespace Burrows.Publishing
             {
                 try
                 {
-                    _confirmer.RecordPublicationAttempt(confirmableMessage);
+                    if (_publishSettings.UsePublisherConfirms)
+                    {
+                        _confirmer.RecordPublicationAttempt(confirmableMessage);
+                    }
                     _serviceBus.Publish(message, context => context.SetHeader("ClientMessageId", confirmableMessage.Id));
                 }
                 catch (Exception ex)
                 {
-                    _confirmer.RecordPublicationFailure(new[]{confirmableMessage.Id});
+                    if (_publishSettings.UsePublisherConfirms)
+                    {
+                        _confirmer.RecordPublicationFailure(new[] {confirmableMessage.Id});
+                    }
                     _log.Error("An error occurred while publishing to MassTransit", ex);
                 }
             }
