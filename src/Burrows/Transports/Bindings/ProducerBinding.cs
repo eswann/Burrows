@@ -15,6 +15,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using Burrows.Endpoints;
 using Burrows.Logging;
 using Burrows.Transports.PublisherConfirm;
@@ -168,10 +169,9 @@ namespace Burrows.Transports.Bindings
                     object clientMessageId;
                     if (properties.Headers.TryGetValue(PublisherConfirmSettings.ClientMessageId, out clientMessageId))
                     {
-                        _confirms.TryAdd(_channel.NextPublishSeqNo, (string)clientMessageId);
+                        _confirms.TryAdd(_channel.NextPublishSeqNo, (string) clientMessageId);
                     }
                 }
-
                 _channel.BasicPublish(exchangeName, "", properties, body);
             }
         }

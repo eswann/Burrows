@@ -15,6 +15,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using Burrows.Context;
 using Burrows.Endpoints;
 using Burrows.Transports.Bindings;
@@ -65,19 +66,20 @@ namespace Burrows.Transports.Rabbit
                         DateTime value = context.ExpirationTime.Value;
                         properties.Expiration =
                             (value.Kind == DateTimeKind.Utc
-                                 ? value - SystemUtil.UtcNow
-                                 : value - SystemUtil.Now).
+                                ? value - SystemUtil.UtcNow
+                                : value - SystemUtil.Now).
                                 TotalMilliseconds.ToString("F0", CultureInfo.InvariantCulture);
                     }
 
                     using (var body = new MemoryStream())
                     {
                         context.SerializeTo(body);
-                        properties.Headers = context.Headers.ToDictionary(entry => entry.Key, entry => (object)entry.Value);
+                        properties.Headers = context.Headers.ToDictionary(entry => entry.Key,
+                            entry => (object) entry.Value);
                         properties.Headers["Content-Type"] = context.ContentType;
 
                         _producer.Publish(_address.Name, properties, body.ToArray());
-                        
+
                         _address.LogSent(context.MessageId ?? properties.MessageId ?? "", context.MessageType);
                     }
                 }
@@ -92,6 +94,13 @@ namespace Burrows.Transports.Rabbit
                 catch (OperationInterruptedException ex)
                 {
                     throw new InvalidConnectionException(_address.Uri, "Operation was interrupted", ex);
+                }
+                catch (IOException ex)
+                {
+                    if (ex.InnerException is SocketException)
+                    {
+                        throw new InvalidConnectionException(_address.Uri, "Connection to RabbitMQ host failed", ex);
+                    }
                 }
             });
         }
