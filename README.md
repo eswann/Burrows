@@ -1,4 +1,4 @@
-#Burrows
+#Burrows 2.0
 
 Burrows is a .Net service bus based on the popular MassTransit service bus.
 
