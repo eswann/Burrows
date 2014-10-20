@@ -1,2 +1,0 @@
-﻿1) Fix the message storage providers to properly store/serialize/deserialize everything.
-2) Look into the configuration of publisher confirms and the bus as a whole.

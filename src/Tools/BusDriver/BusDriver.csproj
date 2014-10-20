@@ -107,10 +107,6 @@
       <Project>{6EFD69FC-CBCC-4F85-AEE0-EFBA73F4D273}</Project>
       <Name>Burrows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Loggers\Burrows.Log4Net\Burrows.Log4Net.csproj">
-      <Project>{8D2BE372-A756-4676-B2EA-ED7846809BFE}</Project>
-      <Name>Burrows.Log4Net</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
