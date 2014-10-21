@@ -99,8 +99,8 @@
     <Compile Include="..\SolutionVersion.cs">
       <Link>SolutionVersion.cs</Link>
     </Compile>
-    <Compile Include="Consumers\ConsumerBase.cs" />
-    <Compile Include="Consumers\IConsumer.cs" />
+    <Compile Include="Subscribers\SubscriberBase.cs" />
+    <Compile Include="Subscribers\ISubscriber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publishers\IPublisher.cs" />
     <Compile Include="Publishers\PublisherBase.cs" />

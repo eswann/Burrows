@@ -1,6 +1,8 @@
-﻿namespace Burrows.Publishers
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Burrows.Publishers
 {
-    public class IPublisher
+    public interface IPublisher
     {
          
     }
